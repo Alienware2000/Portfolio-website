@@ -11,3 +11,6 @@ html { scroll-behavior: smooth; }
 .animate-blink {
   animation: blink 1s step-end infinite;
 }
+
+/* smoothen theme changes */
+* { transition: background-color .2s linear, color .2s linear, border-color .2s linear; }

@@ -24,7 +24,7 @@ export default function App() {
 
       <section id="about" className="mt-14">
         <h2 className="text-lg font-semibold">About</h2>
-        <p className="mt-3 text-gray-700">
+        <p className="mt-3 text-gray-700 dark:text-gray-300">
             Short bio/About me goes here. Interests, tools, and what I’m learning.
         </p>
       </section>

@@ -1,4 +1,5 @@
 // import Header from "./components/Header.jsx";
+import IntroOverlay from "./components/IntroOverlay.jsx";
 import Hero from "./components/Hero.jsx";
 import Navbar from "./components/Navbar.jsx";
 import ProjectCard from "./components/ProjectCard.jsx";
@@ -13,11 +14,13 @@ import NextSectionButton from "./components/NextSectionButton.jsx";
 
 export default function App() {
   return (
-    <motion.main
-      className="mx-auto max-w-5xl px-6 pt-10 sm:pt-14"
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+    <>
+      <IntroOverlay name="David Antwi" stayMs={1200} fadeMs={500} />
+      <motion.main
+        className="mx-auto max-w-5xl px-6 pt-10 sm:pt-14"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 2.6 }}
     >
       {/* <Header /> */}
       <Atmosphere />
@@ -57,5 +60,6 @@ export default function App() {
         <small>© {new Date().getFullYear()} David Antwi</small>
       </footer>
     </motion.main>
+    </>
   );
 }

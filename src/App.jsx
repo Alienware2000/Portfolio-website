@@ -24,7 +24,7 @@ export default function App() {
     >
       {/* <Header /> */}
       <Atmosphere />
-      {/* <Navbar /> */}
+      <Navbar />
       <Hero />
 
 

@@ -64,12 +64,12 @@ export default function Skills() {
                     {skill.level}%
                   </span>
                 </div>
-                <div className="h-2 rounded-full bg-slate-200/60 dark:bg-slate-800/60 overflow-hidden">
+                <div className="h-1 rounded-full bg-slate-200/40 dark:bg-slate-800/40 overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
                     transition={{ duration: 0.6, delay: categoryIndex * 0.06 + 0.15, ease: "easeOut" }}
-                    className="h-full rounded-full bg-blue-600 dark:bg-blue-500"
+                    className="h-full rounded-full bg-slate-900 dark:bg-slate-100"
                   />
                 </div>
               </div>

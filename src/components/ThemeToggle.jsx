@@ -60,7 +60,7 @@ export default function ThemeToggle() {
                  text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100
                  ring-1 ring-transparent hover:ring-slate-300/40 dark:hover:ring-slate-700/40
                  hover:bg-slate-100/50 dark:hover:bg-slate-800/50
-                 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50
+                 focus:outline-none focus:ring-2 focus:ring-slate-400/50 dark:focus:ring-slate-600/50
                  transition-all duration-150"
     >
       <span className="relative block h-5 w-5">

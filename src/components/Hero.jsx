@@ -64,7 +64,7 @@ export default function Hero() {
         >
           <a
             href="#projects"
-            className="px-6 py-2.5 text-sm text-slate-700 dark:text-slate-300
+            className="text-sm text-slate-700 dark:text-slate-300
                        hover:text-slate-900 dark:hover:text-slate-100
                        transition-colors duration-200"
           >
@@ -72,9 +72,8 @@ export default function Hero() {
           </a>
           <a
             href="https://www.linkedin.com/in/david-antwi-b17727205/"
-            className="px-6 py-2.5 text-sm text-slate-900 dark:text-slate-100
-                       border border-slate-300 dark:border-slate-700 rounded
-                       hover:bg-slate-50 dark:hover:bg-slate-800
+            className="text-sm text-slate-700 dark:text-slate-300
+                       hover:text-slate-900 dark:hover:text-slate-100
                        transition-colors duration-200"
           >
             Connect

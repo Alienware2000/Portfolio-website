@@ -24,8 +24,8 @@ export default function App() {
         <Hero />
 
         {/* Projects Section */}
-        <Section id="projects" title="Projects" ambient full>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Section id="projects" title="Projects" full>
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((p) => (
               <ProjectCard key={p.title} {...p} />
             ))}

@@ -1,12 +1,39 @@
 /**
  * Navbar Component
  * Ultra-minimal navigation - pure text links, no backgrounds or borders
+ * Vanish on scroll for clean, immersive experience
  * Inspired by minimalist portfolio aesthetic
  */
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle.jsx";
 
 export default function Navbar() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    let lastScroll = 0;
+
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      
+      // Show navbar when at top or scrolling up
+      // Hide when scrolling down past a threshold (50px)
+      if (currentScroll < 50) {
+        setIsVisible(true);
+      } else if (currentScroll > lastScroll) {
+        setIsVisible(false); // Scrolling down
+      } else {
+        setIsVisible(true); // Scrolling up
+      }
+      
+      lastScroll = currentScroll;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const navLinks = [
     { href: "#projects", label: "Projects" },
     { href: "#about", label: "About" },
@@ -20,8 +47,11 @@ export default function Navbar() {
         <motion.nav
           className="flex items-center justify-between"
           initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          animate={{ 
+            opacity: isVisible ? 1 : 0,
+            y: isVisible ? 0 : -10
+          }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           {/* Navigation links - pure text, no styling */}
           <ul className="flex items-center gap-8 text-sm">

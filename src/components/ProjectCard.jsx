@@ -1,11 +1,26 @@
 /**
  * ProjectCard Component
- * Ultra-minimal project card - no borders, backgrounds, or decorations
- * Pure typography-focused layout
+ * Minimal project card with white border and retro "hop" hover effect
+ * Subtle video game aesthetic while maintaining minimalism
  */
+import { motion } from "framer-motion";
+
 export default function ProjectCard({ title, description, tags = [], link }) {
   return (
-    <article className="space-y-3">
+    <motion.article
+      className="space-y-3 p-6 rounded-lg border border-white/20 dark:border-white/10
+                 bg-transparent
+                 transition-all duration-200"
+      whileHover={{ 
+        y: -4, // Mini hop effect
+      }}
+      transition={{ 
+        type: "spring", 
+        stiffness: 400, 
+        damping: 25,
+        duration: 0.2
+      }}
+    >
       <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100">
         {title}
       </h3>
@@ -31,6 +46,6 @@ export default function ProjectCard({ title, description, tags = [], link }) {
           View project →
         </a>
       )}
-    </article>
+    </motion.article>
   );
 }

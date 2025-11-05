@@ -72,6 +72,8 @@ export default function Hero() {
           </a>
           <a
             href="https://www.linkedin.com/in/david-antwi-b17727205/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm text-slate-700 dark:text-slate-300
                        hover:text-slate-900 dark:hover:text-slate-100
                        transition-colors duration-200"

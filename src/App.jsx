@@ -33,9 +33,9 @@ export default function App() {
           <NextSectionButton href="#about" />
         </Section>
 
-        {/* About Section - Clean, natural flow */}
+        {/* About Section - 3 horizontal paragraphs */}
         <Section id="about" title="About" full>
-          <div className="mx-auto max-w-2xl space-y-6">
+          <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8">
             <p className="text-base leading-relaxed text-slate-600 dark:text-slate-400">
               I'm an Electrical Engineering and Computer Science student at Yale University, graduating in May 2028. 
               I build intelligent systems that bridge hardware and software—from deploying quantized neural networks 
@@ -53,12 +53,6 @@ export default function App() {
               Previously, I worked as an ML Research Intern with the MISE Research Program in Ghana, where I trained 
               CNNs for EEG signal decoding, built TinyML malaria diagnosis systems achieving 93% on-device accuracy, 
               and developed ML classifiers for drug combination prediction.
-            </p>
-
-            <p className="text-base leading-relaxed text-slate-600 dark:text-slate-400">
-              Looking ahead, I'm exploring edge AI deployment, reinforcement learning for robotics control, and building 
-              more intuitive developer tools. I'm particularly interested in projects that push the boundaries of what's 
-              possible at the intersection of machine learning, embedded systems, and human-centered design.
             </p>
           </div>
           <NextSectionButton href="#skills" />

@@ -83,21 +83,8 @@ export default function IntroOverlay({
             </svg>
           </div>
 
-          {/* Stack: monogram + name */}
-          <div className="relative z-10 grid place-items-center gap-4">
-            {/* Monogram pill */}
-            <motion.div
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.5, delay: 0.05, ease: [0.25, 0.1, 0.25, 1] }}
-              className="h-9 px-3 rounded-full border border-white/20 dark:border-white/10
-                         bg-white/40 dark:bg-slate-900/40 backdrop-blur-sm
-                         text-slate-900 dark:text-slate-100 text-sm font-medium tracking-wide"
-            >
-              <div className="flex h-full items-center">DA</div>
-            </motion.div>
-
+          {/* Stack: name + tiny prompt line */}
+          <div className="relative z-10 grid place-items-center gap-3 sm:gap-4">
             {/* Name */}
             <motion.h1
               className="text-5xl sm:text-6xl md:text-7xl font-medium tracking-tight leading-none
@@ -105,10 +92,22 @@ export default function IntroOverlay({
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.6, delay: 0.12, ease: [0.25, 0.1, 0.25, 1] }}
             >
               {name}
             </motion.h1>
+
+            {/* Prompt line */}
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.5, delay: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
+              className="font-mono text-sm sm:text-base tracking-wide
+                         text-slate-600/90 dark:text-slate-400/90"
+            >
+              {"> Entering digital workspace"}
+            </motion.p>
           </div>
         </motion.div>
       )}

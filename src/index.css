@@ -2,18 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-html { scroll-behavior: smooth; }
+/* Base styles with refined color scheme */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-@keyframes blink {
-  0%, 100% { opacity: 1 }
-  50% { opacity: 0 }
+  body {
+    @apply bg-white dark:bg-[#08080a] text-gray-900 dark:text-gray-100;
+    /* Smooth theme transitions */
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Enhanced typography with better line heights */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  /* Smooth transitions for all interactive elements */
+  * {
+    transition-property: background-color, color, border-color, opacity, transform, box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.2s;
+  }
 }
+
+/* Custom animations */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
 .animate-blink {
   animation: blink 1s step-end infinite;
 }
 
-/* smoothen theme changes */
-* { transition: background-color .2s linear, color .2s linear, border-color .2s linear; }
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
 
-html:focus-within { scroll-behavior: smooth; }
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Smooth scroll */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for personality (optional, subtle) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-600;
+}
 

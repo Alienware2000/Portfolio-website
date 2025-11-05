@@ -1,9 +1,14 @@
+/**
+ * IntroOverlay Component
+ * Full-screen introductory overlay that fades into the main site
+ * Supports skip interaction and respects reduced motion preferences
+ */
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 export default function IntroOverlay({
   name = "David Antwi",
-  stayMs = 2500,        // stays visible for about 2.5s before fade
+  stayMs = 2000,        // stays visible for about 2s before fade
   fadeMs = 700,         // fade a bit slower (optional)
 
 }) {

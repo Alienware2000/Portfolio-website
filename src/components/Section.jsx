@@ -27,8 +27,8 @@ export default function Section({ id, title, children, ambient = false, full = f
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <div className="mx-auto h-[520px] max-w-5xl rounded-[2rem]
-                          bg-gradient-to-b from-transparent via-sky-400/5 to-transparent
-                          dark:via-blue-500/10 blur-xl" />
+                          bg-gradient-to-b from-transparent via-sky-300/3 to-transparent
+                          dark:via-blue-600/6 blur-3xl" />
           {/* Additional subtle gradient overlay */}
           <div className="absolute inset-0 mx-auto max-w-5xl
                           bg-gradient-to-b from-sky-400/0 via-transparent to-transparent
@@ -42,9 +42,9 @@ export default function Section({ id, title, children, ambient = false, full = f
           id={id ? `${id}-title` : undefined}
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
+          transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
           className="mt-14 text-xl sm:text-2xl font-semibold tracking-tight
-                     text-slate-900 dark:text-slate-100"
+                     text-slate-900 dark:text-slate-100 mb-2"
         >
           {title}
         </motion.h2>
@@ -52,10 +52,10 @@ export default function Section({ id, title, children, ambient = false, full = f
 
       {/* Content with fade-in animation */}
       <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.3 }}
-        className={title ? "mt-6" : ""}
+        initial={{ opacity: 0, y: 12 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+        transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1], delay: 0.25 }}
+        className={title ? "mt-8" : ""}
       >
         {children}
       </motion.div>

@@ -7,34 +7,28 @@ import { motion } from "framer-motion";
 export default function ProjectCard({ title, description, tags = [], link }) {
   return (
     <motion.article
-      whileHover={{ scale: 1.02, y: -6 }}
-      transition={{ type: "spring", stiffness: 200, damping: 25, mass: 0.8 }}
-      className="group relative rounded-2xl border border-slate-200/80 bg-white/90 dark:border-slate-700/80 dark:bg-slate-900/80
-                 p-6 shadow-md backdrop-blur-sm
-                 hover:shadow-xl hover:shadow-sky-500/10 dark:hover:shadow-blue-500/20
-                 transition-all duration-500 overflow-hidden"
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30, mass: 0.5 }}
+      className="group relative rounded-3xl border border-slate-200/40 bg-white/70 dark:border-slate-800/40 dark:bg-slate-900/60
+                 p-6 shadow-lg shadow-black/5 dark:shadow-black/20 backdrop-blur-xl
+                 hover:shadow-xl hover:shadow-black/10 dark:hover:shadow-black/30
+                 transition-all duration-700 overflow-hidden"
     >
-      {/* Gradient lighting effect on hover - new color scheme */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl
+      {/* Subtle inner glow on hover */}
+      <div className="pointer-events-none absolute inset-0 rounded-3xl
                       bg-gradient-to-br from-sky-400/0 via-emerald-400/0 to-teal-400/0
-                      group-hover:from-sky-400/8 group-hover:via-emerald-400/6 group-hover:to-teal-400/4
-                      dark:group-hover:from-blue-500/12 dark:group-hover:via-violet-500/10 dark:group-hover:to-indigo-500/8
-                      transition-all duration-700" />
-
-      {/* Subtle ring glow on hover */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl
-                      ring-0 ring-sky-400/0
-                      group-hover:ring-8 group-hover:ring-sky-400/10 dark:group-hover:ring-blue-500/20
-                      transition-all duration-500" />
+                      group-hover:from-sky-400/4 group-hover:via-emerald-400/3 group-hover:to-teal-400/2
+                      dark:group-hover:from-blue-500/6 dark:group-hover:via-violet-500/5 dark:group-hover:to-indigo-500/4
+                      transition-all duration-1000" />
 
       {/* Content wrapper */}
       <div className="relative z-10">
         <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100
                        group-hover:text-sky-600 dark:group-hover:text-blue-400
-                       transition-colors duration-300">
+                       transition-colors duration-500 leading-tight">
           {title}
         </h3>
-        <p className="mt-3 text-slate-700 dark:text-slate-300 leading-relaxed">
+        <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed text-[15px]">
           {description}
         </p>
 
@@ -45,14 +39,14 @@ export default function ProjectCard({ title, description, tags = [], link }) {
                 key={t}
                 whileHover={{ scale: 1.05, y: -1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="rounded-lg border border-slate-300/60 dark:border-slate-700/60
-                           bg-slate-50/80 dark:bg-slate-800/60
+                className="rounded-xl border border-slate-200/50 dark:border-slate-700/30
+                           bg-slate-100/50 dark:bg-slate-800/40
                            px-3 py-1.5 text-xs font-medium
-                           text-slate-700 dark:text-slate-300
-                           hover:border-sky-400/60 dark:hover:border-blue-500/60
-                           hover:text-sky-700 dark:hover:text-blue-400
-                           hover:bg-sky-50/50 dark:hover:bg-blue-950/30
-                           transition-all duration-300"
+                           text-slate-600 dark:text-slate-400
+                           hover:border-sky-300/40 dark:hover:border-blue-500/40
+                           hover:text-sky-600 dark:hover:text-blue-400
+                           hover:bg-sky-50/40 dark:hover:bg-blue-950/20
+                           transition-all duration-500 backdrop-blur-sm"
               >
                 {t}
               </motion.li>

@@ -9,22 +9,30 @@
   }
 
   body {
-    @apply bg-white dark:bg-[#08080a] text-gray-900 dark:text-gray-100;
+    @apply bg-[#fafbfc] dark:bg-[#0a0a0c] text-slate-900 dark:text-slate-100;
     /* Smooth theme transitions */
-    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+                color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    font-feature-settings: "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Enhanced typography with better line heights */
+  /* Enhanced typography with spacious, crisp hierarchy */
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
+    letter-spacing: -0.02em;
   }
 
-  /* Smooth transitions for all interactive elements */
+  p {
+    letter-spacing: -0.01em;
+  }
+
+  /* Smooth, natural transitions */
   * {
     transition-property: background-color, color, border-color, opacity, transform, box-shadow;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-duration: 0.3s;
   }
 }
 
@@ -44,17 +52,26 @@
   50% { background-position: 100% 50%; }
 }
 
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.6; }
+}
+
 .animate-blink {
   animation: blink 1s step-end infinite;
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
 }
 
 .animate-gradient {
   background-size: 200% 200%;
-  animation: gradient-shift 3s ease infinite;
+  animation: gradient-shift 8s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 6s ease-in-out infinite;
 }
 
 /* Smooth scroll */
@@ -62,9 +79,9 @@ html:focus-within {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar for personality (optional, subtle) */
+/* Refined scrollbar - subtle and minimal */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -72,10 +89,11 @@ html:focus-within {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+  @apply bg-slate-300/50 dark:bg-slate-700/50 rounded-full;
+  transition: background-color 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-400 dark:bg-gray-600;
+  @apply bg-slate-400/60 dark:bg-slate-600/60;
 }
 

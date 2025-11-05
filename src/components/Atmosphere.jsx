@@ -1,42 +1,50 @@
 /**
  * Atmosphere Component
- * Theme-aware background with soft vignette, gradient lighting, and subtle grid pattern
- * Creates depth and visual interest without being distracting
+ * Living, breathing background with subtle depth and ambient lighting
+ * Creates immersive atmosphere without distraction
  */
 export default function Atmosphere() {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-50 overflow-hidden">
-      {/* Enhanced base vignette with smoother gradient */}
+      {/* Soft vignette - warm for light, cool for dark */}
       <div className="absolute inset-0
-                      bg-gradient-to-b from-transparent via-transparent to-black/8
-                      dark:from-transparent dark:via-transparent dark:to-white/5" />
+                      bg-gradient-to-b from-transparent via-transparent to-black/3
+                      dark:from-transparent dark:via-transparent dark:to-white/2" />
       
-      {/* Radial gradient overlay for depth */}
+      {/* Radial depth overlay */}
       <div className="absolute inset-0
-                      bg-gradient-to-b from-transparent via-transparent to-black/5
-                      dark:from-transparent dark:via-transparent dark:to-white/3" />
+                      bg-gradient-to-b from-transparent via-transparent to-black/2
+                      dark:from-transparent dark:via-transparent dark:to-white/1" />
 
-      {/* Faint radial haze behind hero area with new color scheme */}
-      <div className="absolute left-1/2 top-28 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full blur-3xl
-                      bg-gradient-to-br from-sky-400/8 via-emerald-400/5 to-teal-400/4
-                      dark:from-blue-500/12 dark:via-violet-500/8 dark:to-indigo-500/6
-                      animate-gradient" />
+      {/* Primary ambient glow - breathing, subtle */}
+      <div className="absolute left-1/2 top-1/4 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full blur-3xl
+                      bg-gradient-to-br from-sky-300/6 via-emerald-300/4 to-teal-300/3
+                      dark:from-blue-600/8 dark:via-violet-600/6 dark:to-indigo-600/4
+                      animate-breathe" />
 
-      {/* Secondary accent glow */}
-      <div className="absolute right-1/4 top-1/3 h-64 w-64 rounded-full blur-2xl
-                      bg-cyan-400/4 dark:bg-blue-400/6" />
+      {/* Secondary ambient accent */}
+      <div className="absolute right-1/4 top-1/2 h-80 w-80 rounded-full blur-3xl
+                      bg-amber-200/3 dark:bg-blue-500/4
+                      animate-breathe"
+           style={{ animationDelay: '2s' }} />
 
-      {/* Subtle grid lines with refined opacity for both themes */}
+      {/* Tertiary subtle glow */}
+      <div className="absolute left-1/4 bottom-1/4 h-96 w-96 rounded-full blur-3xl
+                      bg-cyan-200/2 dark:bg-indigo-500/3
+                      animate-breathe"
+           style={{ animationDelay: '4s' }} />
+
+      {/* Extremely subtle grid - almost imperceptible */}
       <svg
-        className="absolute inset-0 h-full w-full opacity-[0.03] dark:opacity-[0.05]"
+        className="absolute inset-0 h-full w-full opacity-[0.015] dark:opacity-[0.02]"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" strokeWidth="0.3"/>
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" className="text-gray-700 dark:text-gray-300"/>
+        <rect width="100%" height="100%" fill="url(#grid)" className="text-slate-400 dark:text-slate-600"/>
       </svg>
     </div>
   );

@@ -16,19 +16,19 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Enhanced glass morphism with refined light/dark theme support
+  // Refined glass morphism - warm light, sleek dark
   const shell = scrolled
-    ? "bg-white/70 dark:bg-[#0f0f12]/80 shadow-lg shadow-black/5 dark:shadow-black/20 ring-1 ring-black/5 dark:ring-white/10"
-    : "bg-white/50 dark:bg-[#0f0f12]/50 ring-1 ring-black/5 dark:ring-white/5";
+    ? "bg-white/60 dark:bg-slate-950/70 shadow-xl shadow-black/5 dark:shadow-black/30 ring-1 ring-slate-200/20 dark:ring-slate-800/30"
+    : "bg-white/40 dark:bg-slate-950/50 ring-1 ring-slate-200/10 dark:ring-slate-800/20";
 
   return (
     <header className="sticky top-4 sm:top-6 z-50">
       <div className="mx-auto max-w-5xl px-6">
         <motion.div
-          className={`h-12 rounded-2xl px-3 sm:px-4 ${shell} backdrop-blur-md flex items-center transition-all duration-300`}
-          initial={{ opacity: 0, y: -10 }}
+          className={`h-12 rounded-3xl px-3 sm:px-4 ${shell} backdrop-blur-xl flex items-center transition-all duration-500`}
+          initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
         >
           {/* left spacer keeps center truly centered */}
           <div className="w-9" />
@@ -45,14 +45,14 @@ export default function Navbar() {
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    className="relative px-2 py-1.5 rounded-lg
-                               text-slate-700 dark:text-slate-300
-                               hover:text-sky-600 dark:hover:text-blue-400
-                               focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 dark:focus-visible:ring-blue-500/50
-                               transition-all duration-300
-                               before:absolute before:inset-0 before:rounded-lg
-                               before:bg-sky-500/0 hover:before:bg-sky-500/5 dark:hover:before:bg-blue-500/5
-                               before:transition-all before:duration-300"
+                    className="relative px-3 py-1.5 rounded-xl
+                               text-slate-600 dark:text-slate-400
+                               hover:text-slate-900 dark:hover:text-slate-100
+                               focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/30 dark:focus-visible:ring-blue-500/30
+                               transition-all duration-500
+                               before:absolute before:inset-0 before:rounded-xl
+                               before:bg-slate-200/0 hover:before:bg-slate-200/30 dark:hover:before:bg-slate-800/30
+                               before:transition-all before:duration-500"
                   >
                     <span className="relative z-10">{l.label}</span>
                   </a>

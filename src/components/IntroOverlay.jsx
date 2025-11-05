@@ -62,16 +62,16 @@ export default function IntroOverlay({
             ease: [0.25, 0.1, 0.25, 1]
           }}
         >
-          {/* Background with subtle gradient */}
+          {/* Background with subtle gradient - warm light, sleek dark */}
           <motion.div 
             className="absolute inset-0 bg-gradient-to-br 
-                       from-slate-50 via-white to-sky-50/20
-                       dark:from-[#09090b] dark:via-[#0f0f14] dark:to-blue-950/10"
+                       from-[#fafbfc] via-white to-sky-50/10
+                       dark:from-[#0a0a0c] dark:via-[#0f0f14] dark:to-blue-950/5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ 
-              duration: 0.6,
+              duration: 0.7,
               ease: [0.25, 0.1, 0.25, 1]
             }}
           />

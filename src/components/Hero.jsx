@@ -17,19 +17,20 @@ export default function Hero() {
       ref={ref}
       className="relative min-h-[90vh] grid place-content-center text-center"
     >
-      {/* Enhanced gradient lighting with new color personality */}
+      {/* Subtle ambient lighting - breathing, unobtrusive */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        {/* Primary glow - teal/emerald for light, blue/violet for dark */}
+        {/* Primary ambient glow */}
         <div
-          className="absolute left-1/2 top-24 h-96 w-96 -translate-x-1/2 rounded-full
-                     bg-gradient-to-br from-sky-400/20 via-emerald-400/15 to-teal-400/10
-                     dark:from-blue-500/25 dark:via-violet-500/20 dark:to-indigo-500/15
-                     blur-3xl animate-gradient"
+          className="absolute left-1/2 top-1/3 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full
+                     bg-gradient-to-br from-sky-300/8 via-emerald-300/6 to-teal-300/4
+                     dark:from-blue-600/12 dark:via-violet-600/8 dark:to-indigo-600/6
+                     blur-3xl animate-breathe"
         />
-        {/* Secondary accent glow */}
+        {/* Secondary subtle accent */}
         <div
-          className="absolute left-1/2 top-32 h-64 w-64 -translate-x-1/2 rounded-full
-                     bg-cyan-400/8 dark:bg-blue-400/12 blur-2xl"
+          className="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 rounded-full
+                     bg-amber-200/3 dark:bg-blue-500/5 blur-3xl animate-breathe"
+          style={{ animationDelay: '3s' }}
         />
       </div>
 
@@ -41,8 +42,8 @@ export default function Hero() {
       >
         {/* Enhanced typography with refined sizing */}
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight
-                       text-gray-900 dark:text-gray-100
-                       leading-[1.1]">
+                       text-slate-900 dark:text-slate-100
+                       leading-[1.08]">
           <Typewriter text="David Antwi" baseSpeed={160} startDelay={2200} />
         </h1>
 
@@ -50,8 +51,8 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 3.5, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-          className="mt-8 text-lg sm:text-xl lg:text-2xl
-                     text-gray-700 dark:text-gray-300
+          className="mt-10 text-lg sm:text-xl lg:text-2xl
+                     text-slate-700 dark:text-slate-300
                      font-medium leading-relaxed"
         >
           I build ML-powered tools, embedded systems, and TinyML applications.
@@ -61,8 +62,8 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 4.0, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-          className="mx-auto mt-6 max-w-2xl text-base sm:text-lg
-                     leading-relaxed text-gray-600 dark:text-gray-400"
+          className="mx-auto mt-7 max-w-2xl text-base sm:text-lg
+                     leading-relaxed text-slate-600 dark:text-slate-400"
         >
           Yale EECS student and Research Intern working across machine learning, embedded systems, and web development.
           Recent work: wearable motion tracking, TinyML medical diagnosis, and semantic search systems.
@@ -76,30 +77,30 @@ export default function Hero() {
         >
           <motion.a
             href="#projects"
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="rounded-xl border border-slate-300/80 bg-white/90 backdrop-blur-sm
-                       px-6 py-3 text-sm font-medium text-slate-900
-                       hover:bg-slate-50 hover:border-sky-300/60
-                       dark:border-slate-700/80 dark:bg-slate-900/90 dark:text-slate-100
-                       dark:hover:bg-slate-800/90 dark:hover:border-blue-500/60
-                       shadow-sm hover:shadow-lg transition-all duration-300"
+            whileHover={{ y: -2 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            className="rounded-2xl border border-slate-200/50 bg-white/60 backdrop-blur-xl
+                       px-6 py-3 text-sm font-medium text-slate-700
+                       hover:bg-white/80 hover:border-slate-300/50 hover:text-slate-900
+                       dark:border-slate-800/50 dark:bg-slate-900/50 dark:text-slate-300
+                       dark:hover:bg-slate-900/70 dark:hover:border-slate-700/50 dark:hover:text-slate-100
+                       shadow-lg shadow-black/5 dark:shadow-black/20 hover:shadow-xl hover:shadow-black/10 dark:hover:shadow-black/30
+                       transition-all duration-500"
           >
             View projects
           </motion.a>
           <motion.a
             href="https://www.linkedin.com/in/david-antwi-b17727205/"
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="rounded-xl px-6 py-3 text-sm font-medium text-white
-                       bg-gradient-to-r from-sky-500 to-cyan-500
-                       hover:from-sky-400 hover:to-cyan-400
-                       dark:from-blue-500 dark:to-violet-500
-                       dark:hover:from-blue-400 dark:hover:to-violet-400
-                       shadow-lg hover:shadow-xl shadow-sky-500/30 dark:shadow-blue-500/30
-                       transition-all duration-300"
+            whileHover={{ y: -2 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            className="rounded-2xl px-6 py-3 text-sm font-medium text-white
+                       bg-gradient-to-r from-sky-500/90 to-cyan-500/90
+                       hover:from-sky-500 hover:to-cyan-500
+                       dark:from-blue-600/90 dark:to-violet-600/90
+                       dark:hover:from-blue-600 dark:hover:to-violet-600
+                       shadow-xl shadow-sky-500/20 dark:shadow-blue-600/20
+                       hover:shadow-2xl hover:shadow-sky-500/30 dark:hover:shadow-blue-600/30
+                       backdrop-blur-sm transition-all duration-500"
           >
             Connect
           </motion.a>

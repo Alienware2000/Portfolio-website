@@ -1,7 +1,7 @@
 /**
  * ProjectCard Component
  * Minimal project card with white border and retro "hop" hover effect
- * Subtle video game aesthetic while maintaining minimalism
+ * Snappy, responsive video game feel with immediate feedback
  */
 import { motion } from "framer-motion";
 
@@ -10,15 +10,20 @@ export default function ProjectCard({ title, description, tags = [], link }) {
     <motion.article
       className="space-y-3 p-6 rounded-lg border border-white/20 dark:border-white/10
                  bg-transparent
-                 transition-all duration-200"
+                 cursor-pointer"
       whileHover={{ 
-        y: -4, // Mini hop effect
+        y: -8, // More pronounced hop for video game feel
+        scale: 1.02, // Slight scale for extra responsiveness
+      }}
+      whileTap={{
+        y: -4, // Smaller hop on tap/click
+        scale: 0.98,
       }}
       transition={{ 
         type: "spring", 
-        stiffness: 400, 
-        damping: 25,
-        duration: 0.2
+        stiffness: 800, // Much stiffer for snappy response
+        damping: 15, // Lower damping for quicker bounce
+        mass: 0.5, // Lighter mass for faster reaction
       }}
     >
       <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100">

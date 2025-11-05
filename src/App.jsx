@@ -24,7 +24,7 @@ export default function App() {
         <Hero />
 
         {/* Projects Section */}
-        <Section id="projects" title="Projects" full>
+        <Section id="projects" title="Projects" full className="mb-24">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((p) => (
               <ProjectCard key={p.title} {...p} />
@@ -35,7 +35,7 @@ export default function App() {
 
         {/* About Section - 3 horizontal paragraphs */}
         <Section id="about" title="About" full>
-          <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-8">
             <p className="text-base leading-relaxed text-slate-600 dark:text-slate-400">
               I'm an Electrical Engineering and Computer Science student at Yale University, graduating in May 2028. 
               I build intelligent systems that bridge hardware and software—from deploying quantized neural networks 

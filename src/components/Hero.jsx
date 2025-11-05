@@ -1,6 +1,7 @@
 /**
  * Hero Component
- * Main landing section with animated typewriter effect and refined typography
+ * Main landing section with typewriter effect
+ * Clean, minimal presentation
  */
 import { useRef } from "react";
 import { useInView, motion } from "framer-motion";
@@ -17,12 +18,6 @@ export default function Hero() {
       ref={ref}
       className="relative min-h-[90vh] grid place-content-center text-center"
     >
-      {/* Minimal digital depth */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-1/2 top-1/2 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2
-                        rounded-full blur-3xl
-                        bg-slate-200/3 dark:bg-slate-800/3" />
-      </div>
 
       <motion.div
         initial={{ opacity: 0, y: 8 }}
@@ -67,31 +62,23 @@ export default function Hero() {
           transition={{ delay: 3.6, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           className="flex flex-wrap items-center justify-center gap-4"
         >
-          <motion.a
+          <a
             href="#projects"
-            whileHover={{ y: -1 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="rounded-lg border border-slate-300/40 bg-white/60 dark:border-slate-700/30 dark:bg-slate-900/40
-                       px-6 py-2.5 text-sm font-normal text-slate-700 dark:text-slate-300
-                       hover:bg-white/80 dark:hover:bg-slate-900/60
-                       hover:border-slate-400/60 dark:hover:border-slate-600/40
-                       focus:outline-none focus:ring-1 focus:ring-slate-400 dark:focus:ring-slate-600
-                       transition-all duration-200"
+            className="px-6 py-2.5 text-sm text-slate-700 dark:text-slate-300
+                       hover:text-slate-900 dark:hover:text-slate-100
+                       transition-colors duration-200"
           >
             Projects
-          </motion.a>
-          <motion.a
+          </a>
+          <a
             href="https://www.linkedin.com/in/david-antwi-b17727205/"
-            whileHover={{ y: -1 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="rounded-lg px-6 py-2.5 text-sm font-normal text-white
-                       bg-slate-900 hover:bg-slate-800
-                       dark:bg-slate-100 dark:hover:bg-slate-200 dark:text-slate-900
-                       focus:outline-none focus:ring-1 focus:ring-slate-400 dark:focus:ring-slate-600
-                       transition-all duration-200"
+            className="px-6 py-2.5 text-sm text-slate-900 dark:text-slate-100
+                       border border-slate-300 dark:border-slate-700 rounded
+                       hover:bg-slate-50 dark:hover:bg-slate-800
+                       transition-colors duration-200"
           >
             Connect
-          </motion.a>
+          </a>
         </motion.div>
       </motion.div>
       <NextSectionButton href="#projects" show={inView} />

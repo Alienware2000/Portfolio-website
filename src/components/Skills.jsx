@@ -1,9 +1,9 @@
 /**
  * Skills Component
- * Visual representation of technical skills with animated progress bars
+ * Displays technical skills with animated progress bars
+ * Organized by category: Languages, Frameworks, Specializations
  */
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const skillCategories = [
@@ -50,7 +50,7 @@ export default function Skills() {
           transition={{ duration: 0.55, delay: categoryIndex * 0.06, ease: "easeOut" }}
           className="space-y-4"
         >
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-200 mb-3">
+          <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100 mb-3">
             {category.title}
           </h3>
           <div className="space-y-3">

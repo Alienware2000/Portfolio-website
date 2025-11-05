@@ -1,9 +1,9 @@
 /**
  * Section Component
- * Reusable full-height section with ambient lighting and smooth transitions
+ * Simple section wrapper with title and content
+ * Handles scroll animations and spacing
  */
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 export default function Section({ id, title, children, ambient = false, full = false, className = "" }) {
@@ -14,45 +14,40 @@ export default function Section({ id, title, children, ambient = false, full = f
     <section
       ref={ref}
       id={id}
-      className={`relative ${full ? "min-h-[85vh] grid content-start" : "mt-14"} scroll-mt-24 ${className}`}
+      className={`relative ${full ? "min-h-[85vh] grid content-start" : "mt-20"} scroll-mt-24 ${className}`}
       aria-labelledby={id ? `${id}-title` : undefined}
     >
-      {/* Enhanced ambient lighting with gradient personality */}
+      {/* Subtle ambient glow for certain sections */}
       {ambient && (
-        <motion.div
+        <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
         >
           <div className="mx-auto h-[520px] max-w-5xl rounded-[2rem]
-                          bg-gradient-to-b from-transparent via-blue-100/2 to-transparent
-                          dark:via-blue-950/4 blur-3xl" />
-          {/* Additional subtle gradient overlay */}
-        </motion.div>
+                          bg-gradient-to-b from-transparent via-slate-100/2 to-transparent
+                          dark:via-slate-900/4 blur-3xl" />
+        </div>
       )}
 
-      {/* Enhanced section title with fade-in animation */}
+      {/* Section title */}
       {title && (
         <motion.h2
           id={id ? `${id}-title` : undefined}
-          initial={{ opacity: 0, y: 12 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-          transition={{ duration: 0.55, ease: "easeOut", delay: 0.05 }}
-          className="mt-16 text-xl sm:text-2xl font-medium tracking-tight
-                     text-slate-900 dark:text-slate-100 mb-6"
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="mb-8 text-xl sm:text-2xl font-medium tracking-tight
+                     text-slate-900 dark:text-slate-100"
         >
           {title}
         </motion.h2>
       )}
 
-      {/* Content with fade-in animation */}
+      {/* Content */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-        transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-        className={title ? "mt-6" : ""}
+        transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
       >
         {children}
       </motion.div>

@@ -1,6 +1,7 @@
 /**
  * ThemeToggle Component
- * Smooth theme switcher with animated icon transitions and enhanced hover states
+ * Simple theme switcher - toggles between light and dark mode
+ * Persists preference in localStorage
  */
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";

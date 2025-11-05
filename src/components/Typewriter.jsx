@@ -1,7 +1,7 @@
 /**
  * Typewriter Component
- * Natural, human-like typing effect with variable speed
- * Slower and more natural pacing
+ * Natural typing effect for name display
+ * Variable speed with pauses for punctuation - feels human-like
  */
 import { useEffect, useState } from "react";
 

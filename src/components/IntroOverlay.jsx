@@ -12,41 +12,59 @@ export default function IntroOverlay({
 }) {
   const [show, setShow] = useState(true);
   const reduce = useReducedMotion();
+  const [lockedScrollY, setLockedScrollY] = useState(0);
 
-  // Initialize: respect reduced motion and session-level skip
+  // Initialize: respect reduced motion (no session memory)
   useEffect(() => {
-    const seen = typeof window !== "undefined" && sessionStorage.getItem("introSeen") === "1";
-    if (reduce || seen) {
+    if (reduce) {
       setShow(false);
       return;
     }
 
     const timer = setTimeout(() => {
       setShow(false);
-      try { sessionStorage.setItem("introSeen", "1"); } catch (_) {}
     }, duration);
 
     return () => clearTimeout(timer);
   }, [reduce, duration]);
 
-  // Prevent scroll while overlay is visible
+  // Prevent scroll while overlay is visible, without causing jump on release
   useEffect(() => {
-    const root = document.documentElement;
+    const body = document.body;
     if (show) {
-      root.classList.add("overflow-hidden");
+      const currentY = window.scrollY || window.pageYOffset;
+      setLockedScrollY(currentY);
+      // Lock body at current scroll position
+      body.style.position = "fixed";
+      body.style.top = `-${currentY}px`;
+      body.style.left = "0";
+      body.style.right = "0";
+      body.style.width = "100%";
     } else {
-      root.classList.remove("overflow-hidden");
+      // Release lock and restore original scroll position
+      const top = body.style.top;
+      body.style.position = "";
+      body.style.top = "";
+      body.style.left = "";
+      body.style.right = "";
+      body.style.width = "";
+      const y = top ? -parseInt(top, 10) || lockedScrollY : lockedScrollY;
+      window.scrollTo(0, y);
     }
-    return () => root.classList.remove("overflow-hidden");
-  }, [show]);
+    return () => {
+      // Cleanup in case component unmounts mid-transition
+      body.style.position = "";
+      body.style.top = "";
+      body.style.left = "";
+      body.style.right = "";
+      body.style.width = "";
+    };
+  }, [show, lockedScrollY]);
 
-  // Allow skip on click or key press, mark session seen
+  // Allow skip on click or key press
   useEffect(() => {
     if (!show) return;
-    const skip = () => {
-      try { sessionStorage.setItem("introSeen", "1"); } catch (_) {}
-      setShow(false);
-    };
+    const skip = () => setShow(false);
     window.addEventListener("keydown", skip);
     window.addEventListener("click", skip);
     return () => {

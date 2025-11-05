@@ -1,31 +1,31 @@
 export const projects = [
   {
     title: "Academic Matcher",
-    description: "Semantic search system to match students with research labs by embedding faculty research areas for meaning-based retrieval. Scraped 40+ professor profiles and implemented vector search with FAISS.",
+    description: "A smart search tool that helps students find research labs that match their interests. Uses AI to understand what professors work on and connects students with the right opportunities.",
     tags: ["Python", "NLP", "SentenceTransformer", "FAISS", "Streamlit", "BeautifulSoup"],
     link: "https://github.com/Alienware2000"
   },
   {
     title: "TinyML Malaria Diagnosis System",
-    description: "Low-cost TinyML system deploying a quantized MobileNet CNN on Arduino Nano 33 BLE Sense, trained on 27.5K+ labeled malaria cell images. Achieved 93% on-device accuracy for offline diagnosis in low-resource settings.",
+    description: "A portable medical device that can detect malaria from cell images without needing internet. Designed for use in remote areas where healthcare access is limited.",
     tags: ["TinyML", "Python", "TensorFlow", "Arduino", "Computer Vision", "Medical ML"],
     link: "https://github.com/Alienware2000"
   },
   {
     title: "Wearable Motion Tracking System",
-    description: "6-IMU + 2-touch sensor embedded system on Adafruit microcontroller for wearable motion tracking. Implemented real-time sensor fusion and synced 8 sensors in C++ with on-device calibration routines.",
+    description: "A wearable device that tracks body movement in real-time using multiple sensors. Useful for sports analysis, physical therapy, and motion capture applications.",
     tags: ["C++", "Embedded Systems", "Sensor Fusion", "IMU", "Microcontrollers"],
     link: "https://github.com/Alienware2000"
   },
   {
     title: "Mars Rover UI System",
-    description: "Co-developed rover UI connecting Next.js frontend with Python backend to stream live camera feeds over LAN from Raspberry Pi to base station. Evaluating motor-control communication for 15 rover motors.",
+    description: "A web dashboard for controlling and monitoring a Mars rover remotely. Streams live camera feeds and allows real-time control of rover motors and systems.",
     tags: ["Next.js", "React", "Python", "Raspberry Pi", "IoT"],
     link: "https://github.com/Alienware2000"
   },
   {
     title: "TinyML Keyword Spotting",
-    description: "Embedded keyword spotting system trained to recognize specific voice using Edge Impulse. Deployed int8-quantized model on Arduino Nano 33 BLE Sense achieving ~89% speaker-specific accuracy with ~200ms latency.",
+    description: "A voice recognition device that responds to specific voice commands without needing cloud connectivity. Runs entirely on a small microcontroller for privacy and low latency.",
     tags: ["TinyML", "Edge Impulse", "Arduino", "Audio Processing", "Embedded AI"],
     link: "https://github.com/Alienware2000"
   }

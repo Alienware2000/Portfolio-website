@@ -54,18 +54,20 @@ export default function ThemeToggle() {
       aria-label="Toggle dark mode"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
+      transition={{ duration: 0.15, ease: "easeOut" }}
       className="inline-flex h-9 w-9 items-center justify-center rounded-lg
-                 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white
-                 ring-1 ring-transparent hover:ring-gray-300/60 dark:hover:ring-gray-700/60
-                 hover:bg-gray-100/50 dark:hover:bg-gray-800/50
-                 transition-all duration-200"
+                 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100
+                 ring-1 ring-transparent hover:ring-slate-300/40 dark:hover:ring-slate-700/40
+                 hover:bg-slate-100/50 dark:hover:bg-slate-800/50
+                 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50
+                 transition-all duration-150"
     >
       <span className="relative block h-5 w-5">
         {/* Smooth icon cross-fade with rotation */}
         <motion.div
           initial={false}
           animate={{ rotate: dark ? 0 : 180, opacity: dark ? 0 : 1 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
           className="absolute inset-0"
         >
           <SunIcon className="h-5 w-5" />
@@ -73,7 +75,7 @@ export default function ThemeToggle() {
         <motion.div
           initial={false}
           animate={{ rotate: dark ? 0 : -180, opacity: dark ? 1 : 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
           className="absolute inset-0"
         >
           <MoonIcon className="h-5 w-5" />

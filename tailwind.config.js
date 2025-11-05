@@ -4,31 +4,27 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      // Refined color palette with new personality
+      // Professional dual-theme palette
       colors: {
-        // Light theme: fresh teal/emerald tones
+        // Light theme: Daylight / Creative - warm, airy, welcoming
         light: {
-          bg: "rgb(250, 252, 253)",
+          bg: "rgb(252, 252, 251)", // Gentle off-white
           surface: "rgb(255, 255, 255)",
-          text: "rgb(15, 23, 42)",
-          textMuted: "rgb(71, 85, 105)",
+          text: "rgb(30, 41, 59)", // Not pure black
+          textMuted: "rgb(100, 116, 139)",
           border: "rgb(226, 232, 240)",
-          accent: "rgb(14, 165, 233)", // Sky blue
-          accentHover: "rgb(2, 132, 199)", // Sky blue darker
-          secondary: "rgb(16, 185, 129)", // Emerald
-          tertiary: "rgb(139, 92, 246)", // Violet
+          accent: "rgb(59, 130, 246)", // Pastel blue
+          accentHover: "rgb(37, 99, 235)",
         },
-        // Dark theme: deep purple/blue tones
+        // Dark theme: Studio / Engineer - sleek, focused, low-distraction
         dark: {
-          bg: "rgb(9, 9, 11)",
-          surface: "rgb(15, 15, 20)",
-          text: "rgb(248, 250, 252)",
+          bg: "rgb(10, 10, 12)", // Matte dark
+          surface: "rgb(15, 15, 18)",
+          text: "rgb(241, 245, 249)", // Not pure white
           textMuted: "rgb(148, 163, 184)",
           border: "rgb(39, 39, 42)",
-          accent: "rgb(96, 165, 250)", // Blue
-          accentHover: "rgb(147, 197, 253)", // Light blue
-          secondary: "rgb(167, 139, 250)", // Violet
-          tertiary: "rgb(251, 146, 60)", // Orange
+          accent: "rgb(56, 189, 248)", // Electric blue
+          accentHover: "rgb(96, 165, 250)",
         },
       },
       // Enhanced typography scale

@@ -24,15 +24,12 @@ export default function Section({ id, title, children, ambient = false, full = f
           className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
         >
           <div className="mx-auto h-[520px] max-w-5xl rounded-[2rem]
-                          bg-gradient-to-b from-transparent via-sky-300/3 to-transparent
-                          dark:via-blue-600/6 blur-3xl" />
+                          bg-gradient-to-b from-transparent via-blue-100/2 to-transparent
+                          dark:via-blue-950/4 blur-3xl" />
           {/* Additional subtle gradient overlay */}
-          <div className="absolute inset-0 mx-auto max-w-5xl
-                          bg-gradient-to-b from-sky-400/0 via-transparent to-transparent
-                          dark:from-blue-500/0" />
         </motion.div>
       )}
 
@@ -40,11 +37,11 @@ export default function Section({ id, title, children, ambient = false, full = f
       {title && (
         <motion.h2
           id={id ? `${id}-title` : undefined}
-          initial={{ opacity: 0, y: 15 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
-          className="mt-14 text-xl sm:text-2xl font-semibold tracking-tight
-                     text-slate-900 dark:text-slate-100 mb-2"
+          initial={{ opacity: 0, y: 12 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          transition={{ duration: 0.55, ease: "easeOut", delay: 0.05 }}
+          className="mt-16 text-xl sm:text-2xl font-medium tracking-tight
+                     text-slate-900 dark:text-slate-100 mb-6"
         >
           {title}
         </motion.h2>
@@ -52,10 +49,10 @@ export default function Section({ id, title, children, ambient = false, full = f
 
       {/* Content with fade-in animation */}
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-        transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1], delay: 0.25 }}
-        className={title ? "mt-8" : ""}
+        initial={{ opacity: 0, y: 10 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+        transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
+        className={title ? "mt-6" : ""}
       >
         {children}
       </motion.div>

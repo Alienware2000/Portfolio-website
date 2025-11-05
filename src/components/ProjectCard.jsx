@@ -7,75 +7,62 @@ import { motion } from "framer-motion";
 export default function ProjectCard({ title, description, tags = [], link }) {
   return (
     <motion.article
-      whileHover={{ y: -4 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30, mass: 0.5 }}
-      className="group relative rounded-3xl border border-slate-200/40 bg-white/70 dark:border-slate-800/40 dark:bg-slate-900/60
-                 p-6 shadow-lg shadow-black/5 dark:shadow-black/20 backdrop-blur-xl
-                 hover:shadow-xl hover:shadow-black/10 dark:hover:shadow-black/30
-                 transition-all duration-700 overflow-hidden"
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="group relative rounded-lg border border-slate-200/40 dark:border-slate-800/30
+                 bg-white/50 dark:bg-slate-900/40
+                 p-6
+                 hover:bg-white/70 dark:hover:bg-slate-900/60
+                 hover:border-slate-300/60 dark:hover:border-slate-700/40
+                 transition-all duration-300"
     >
-      {/* Subtle inner glow on hover */}
-      <div className="pointer-events-none absolute inset-0 rounded-3xl
-                      bg-gradient-to-br from-sky-400/0 via-emerald-400/0 to-teal-400/0
-                      group-hover:from-sky-400/4 group-hover:via-emerald-400/3 group-hover:to-teal-400/2
-                      dark:group-hover:from-blue-500/6 dark:group-hover:via-violet-500/5 dark:group-hover:to-indigo-500/4
-                      transition-all duration-1000" />
 
       {/* Content wrapper */}
       <div className="relative z-10">
-        <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100
-                       group-hover:text-sky-600 dark:group-hover:text-blue-400
-                       transition-colors duration-500 leading-tight">
+        <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100 mb-3 leading-tight
+                       transition-colors duration-300">
           {title}
         </h3>
-        <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed text-[15px]">
+        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
           {description}
         </p>
 
         {tags.length > 0 && (
-          <ul className="mt-5 flex flex-wrap gap-2">
-            {tags.map((t) => (
-              <motion.li
+          <ul className="flex flex-wrap gap-2 mb-4">
+            {tags.slice(0, 4).map((t) => (
+              <li
                 key={t}
-                whileHover={{ scale: 1.05, y: -1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="rounded-xl border border-slate-200/50 dark:border-slate-700/30
-                           bg-slate-100/50 dark:bg-slate-800/40
-                           px-3 py-1.5 text-xs font-medium
+                className="rounded-md border border-slate-200/60 dark:border-slate-700/40
+                           bg-slate-50/80 dark:bg-slate-800/50
+                           px-2.5 py-1 text-xs font-medium
                            text-slate-600 dark:text-slate-400
-                           hover:border-sky-300/40 dark:hover:border-blue-500/40
-                           hover:text-sky-600 dark:hover:text-blue-400
-                           hover:bg-sky-50/40 dark:hover:bg-blue-950/20
-                           transition-all duration-500 backdrop-blur-sm"
+                           transition-colors duration-150"
               >
                 {t}
-              </motion.li>
+              </li>
             ))}
           </ul>
         )}
 
         {link && (
-          <motion.p className="mt-5">
+          <p>
             <a
               href={link}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 font-medium
-                         text-sky-600 dark:text-blue-400
-                         hover:text-sky-700 dark:hover:text-blue-300
-                         hover:gap-2 transition-all duration-300"
+              className="inline-flex items-center gap-1.5 text-sm font-normal
+                         text-slate-700 dark:text-slate-300
+                         hover:text-slate-900 dark:hover:text-slate-100
+                         hover:underline underline-offset-2
+                         focus:outline-none focus:ring-1 focus:ring-slate-400 dark:focus:ring-slate-600 rounded
+                         transition-all duration-200"
             >
               View project
-              <svg
-                className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
-          </motion.p>
+          </p>
         )}
       </div>
     </motion.article>

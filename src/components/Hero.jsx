@@ -4,20 +4,72 @@
  * Clean, minimal presentation
  */
 import { useRef } from "react";
-import { useInView, motion } from "framer-motion";
+import { useInView, motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import NextSectionButton from "./NextSectionButton.jsx";
 import Typewriter from "./Typewriter.jsx";
 
 export default function Hero() {
   const ref = useRef(null);
   const inView = useInView(ref, { amount: 0.6 });
+  const reduce = useReducedMotion();
+
+  // Spotlight motion (clamped ±8px offset from center)
+  const mvX = useMotionValue(0);
+  const mvY = useMotionValue(0);
+  const x = useSpring(mvX, { stiffness: 120, damping: 20, mass: 0.3 });
+  const y = useSpring(mvY, { stiffness: 120, damping: 20, mass: 0.3 });
+
+  const handleMouseMove = (e) => {
+    if (reduce || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const relX = e.clientX - (rect.left + rect.width / 2);
+    const relY = e.clientY - (rect.top + rect.height / 2);
+    const clamp = (v) => Math.max(-8, Math.min(8, v));
+    mvX.set(clamp(relX / 16)); // soften
+    mvY.set(clamp(relY / 16));
+  };
+
+  const handleMouseLeave = () => {
+    mvX.set(0);
+    mvY.set(0);
+  };
 
   return (
     <section
       id="hero"
       ref={ref}
       className="relative min-h-[90vh] grid place-content-center text-center"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
+
+      {/* Immersive background: gradient field + dot matrix + spotlight */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        {/* Slow gradient field */}
+        <div className="absolute inset-0 hero-gradient-field opacity-[0.02] dark:opacity-[0.03]" />
+
+        {/* Faint dot matrix */}
+        <motion.svg
+          className="absolute inset-0 h-full w-full opacity-[0.015] dark:opacity-[0.02]"
+          xmlns="http://www.w3.org/2000/svg"
+          initial={{ y: 6, opacity: 0 }}
+          animate={reduce ? { y: 0, opacity: 1 } : { y: [6, 0, 6], opacity: 1 }}
+          transition={reduce ? { duration: 0.3 } : { duration: 30, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <defs>
+            <pattern id="dot-matrix" width="28" height="28" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="currentColor" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#dot-matrix)" className="text-slate-300/60 dark:text-slate-700/60" />
+        </motion.svg>
+
+        {/* Mouse-reactive spotlight (very soft) */}
+        <motion.div
+          style={{ x, y, background: "radial-gradient(closest-side, rgba(255,255,255,0.06), rgba(255,255,255,0) 65%)" }}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[42rem] h-[42rem] rounded-full blur-3xl"
+        />
+      </div>
 
       <motion.div
         initial={{ opacity: 0, y: 8 }}

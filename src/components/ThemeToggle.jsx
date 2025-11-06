@@ -28,25 +28,12 @@ function MoonIcon(props) {
 }
 
 export default function ThemeToggle() {
-  // Initialize theme from localStorage or system preference
-  const [dark, setDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem("theme");
-      if (stored) return stored === "dark";
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
-    }
-    return false;
-  });
+  // Initialize theme (always dark by default; no persistence)
+  const [dark, setDark] = useState(true);
 
   useEffect(() => {
     const root = document.documentElement.classList;
-    if (dark) {
-      root.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      root.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
+    if (dark) root.add("dark"); else root.remove("dark");
   }, [dark]);
 
   return (

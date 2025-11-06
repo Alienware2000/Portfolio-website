@@ -17,15 +17,10 @@
     </style>
 
 
-    <!-- Run first: set theme class on <html> (dark by default unless saved "light") -->
+    <!-- Run first: force dark class on <html> (always dark by default) -->
     <script>
       (function () {
-        const saved = localStorage.getItem("theme");
-        if (saved === "light") {
-          document.documentElement.classList.remove("dark");
-        } else {
-          document.documentElement.classList.add("dark");
-        }
+        document.documentElement.classList.add("dark");
       })();
     </script>
 

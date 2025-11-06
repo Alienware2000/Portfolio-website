@@ -14,7 +14,7 @@ export default function Section({ id, title, children, ambient = false, full = f
     <section
       ref={ref}
       id={id}
-      className={`relative ${full ? "min-h-[85vh] flex flex-col" : "mt-20"} scroll-mt-24 ${className}`}
+      className={`relative ${full ? "min-h-[85vh] flex flex-col" : "mt-20"} scroll-mt-24 snap-start ${className}`}
       aria-labelledby={id ? `${id}-title` : undefined}
     >
       {/* Subtle ambient glow for certain sections */}

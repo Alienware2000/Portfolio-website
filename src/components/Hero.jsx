@@ -133,7 +133,7 @@ export default function Hero() {
           </a>
         </motion.div>
       </motion.div>
-      <NextSectionButton href="#projects" show={inView} />
+      <NextSectionButton href="#projects" show={inView} offset={96} />
     </section>
   );
 }

@@ -19,7 +19,7 @@ export default function App() {
       <IntroOverlay name="David Antwi" duration={1800} />
       <Atmosphere />
       
-      <main className="mx-auto max-w-5xl px-6 pt-10 sm:pt-14">
+      <main className="mx-auto max-w-5xl px-6 pt-10 sm:pt-14 snap-y snap-proximity">
         <Navbar />
         <Hero />
 
@@ -30,7 +30,7 @@ export default function App() {
               <ProjectCard key={p.title} {...p} />
             ))}
           </div>
-          <NextSectionButton href="#about" />
+          <NextSectionButton href="#about" variant="inline" offset={96} />
         </Section>
 
         {/* About Section - 3 horizontal paragraphs with borders, vertically centered */}

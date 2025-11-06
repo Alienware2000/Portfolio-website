@@ -10,7 +10,7 @@ export default function Atmosphere() {
       <div className="absolute inset-0
                       bg-gradient-to-b from-transparent via-transparent to-black/1
                       dark:from-transparent dark:via-transparent dark:to-white/0.5" />
-      
+
       {/* Minimal grid - digital world feel */}
       <svg
         className="absolute inset-0 h-full w-full opacity-[0.015] dark:opacity-[0.02]"

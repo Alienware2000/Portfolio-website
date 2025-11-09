@@ -4,13 +4,16 @@
  * Snappy, responsive video game feel with immediate feedback
  */
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
-export default function ProjectCard({ title, description, tags = [], link }) {
+export default function ProjectCard({ title, description, tags = [], link, slug }) {
+  const navigate = useNavigate();
   return (
     <motion.article
       className="space-y-3 p-6 rounded-lg border border-white/20 dark:border-white/10
                  bg-transparent
                  cursor-pointer"
+      onClick={() => navigate(`/project/${slug}`)}
       whileHover={{ 
         y: -8, // More pronounced hop for video game feel
         scale: 1.02, // Slight scale for extra responsiveness
@@ -39,19 +42,19 @@ export default function ProjectCard({ title, description, tags = [], link }) {
         </p>
       )}
 
-      {link && (
-        <a
-          href={link}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-block text-sm text-slate-700 dark:text-slate-300
-                     hover:text-slate-900 dark:hover:text-slate-100
-                     hover:underline underline-offset-2
-                     transition-colors duration-200"
-        >
-          View project →
-        </a>
-      )}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/project/${slug}`);
+        }}
+        className="inline-block text-sm text-slate-700 dark:text-slate-300
+                   hover:text-slate-900 dark:hover:text-slate-100
+                   hover:underline underline-offset-2
+                   transition-colors duration-200"
+      >
+        Open details →
+      </button>
     </motion.article>
   );
 }

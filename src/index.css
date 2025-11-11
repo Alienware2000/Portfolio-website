@@ -11,7 +11,9 @@
   }
 
   body {
-    @apply bg-[#fcfcfb] dark:bg-[#0a0a0c] text-slate-900 dark:text-slate-100;
+    /* Page background color comes from CSS variables to match particle canvas */
+    background-color: rgb(var(--bg-page));
+    color: rgb(var(--text-page));
     /* Smooth theme transitions */
     transition: background-color 0.5s ease-out,
                 color 0.5s ease-out;
@@ -39,6 +41,34 @@
         transition-timing-function: ease-out;
         transition-duration: 0.15s;
       }
+}
+
+/* Particle color variables (light/dark) taken from user's reference image */
+:root {
+  --particle-node: 60, 74, 98;      /* light node rgb */
+  --particle-link: 116, 134, 166;   /* light link rgb */
+  --bg-page: 247, 247, 251;         /* light background */
+  --text-page: 17, 24, 39;          /* slate-900-ish */
+}
+
+.dark {
+  --particle-node: 169, 185, 214;   /* dark node rgb */
+  --particle-link: 126, 143, 170;   /* dark link rgb */
+  --bg-page: 15, 14, 20;            /* deep charcoal-purple */
+  --text-page: 243, 244, 246;       /* slate-100-ish */
+}
+
+/* Reusable components/utilities */
+@layer components {
+  /* Subtle surface panel for dark backgrounds */
+  .surface-panel {
+    @apply rounded-xl border border-white/10 bg-white/5 p-6 sm:p-8;
+  }
+
+  /* Higher-contrast link on dark, with underline on hover */
+  .link-contrast {
+    @apply text-slate-300 hover:text-slate-100 hover:underline underline-offset-2;
+  }
 }
 
 /* Custom animations */

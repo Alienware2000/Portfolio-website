@@ -1,7 +1,7 @@
 export const projects = [
   {
-    slug: "wearable-motion-tracking-system",
-    title: "Wearable Motion Tracking System",
+    slug: "exosense",
+    title: "ExoSense",
     description: "A wearable device that tracks body movement in real-time using multiple sensors. Useful for sports analysis, physical therapy, and motion capture applications.",
     tags: ["C++", "Embedded Systems", "Sensor Fusion", "IMU", "Microcontrollers"],
     link: "https://github.com/Alienware2000/FaboIMUrig"

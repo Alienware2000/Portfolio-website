@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { projects } from "../data/projects";
+import { projectDetails } from "../data/projectDetails";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -51,36 +52,68 @@ export default function ProjectDetail() {
         </a>
       </div>
 
-      {/* Placeholder sections */}
-      <section className="mb-10">
-        <h2 className="mb-3 text-xl font-medium text-slate-900 dark:text-slate-100">Project Overview</h2>
-        <p className="text-slate-600 dark:text-slate-400">
-          High‑level summary of the project’s purpose, scope, and audience. We’ll fill this in next.
-        </p>
-      </section>
+      {/* Sections */}
+      {projectDetails[slug] ? (
+        <>
+          <section className="mb-10">
+            <h2 className="mb-3 text-xl font-medium text-slate-900 dark:text-slate-100">Project Overview</h2>
+            <p className="text-slate-600 dark:text-slate-400">{projectDetails[slug].overview}</p>
+          </section>
 
-      <section className="mb-10 grid gap-6 sm:grid-cols-2">
-        <div>
-          <h3 className="mb-2 text-lg font-medium text-slate-900 dark:text-slate-100">Challenge</h3>
-          <p className="text-slate-600 dark:text-slate-400">What problem were we solving?</p>
-        </div>
-        <div>
-          <h3 className="mb-2 text-lg font-medium text-slate-900 dark:text-slate-100">Solution</h3>
-          <p className="text-slate-600 dark:text-slate-400">A concise look at the core idea and approach.</p>
-        </div>
-      </section>
+          <section className="mb-10 grid gap-6 sm:grid-cols-2">
+            <div>
+              <h3 className="mb-2 text-lg font-medium text-slate-900 dark:text-slate-100">Challenge</h3>
+              <p className="text-slate-600 dark:text-slate-400">{projectDetails[slug].challenge}</p>
+            </div>
+            <div>
+              <h3 className="mb-2 text-lg font-medium text-slate-900 dark:text-slate-100">Solution</h3>
+              <p className="text-slate-600 dark:text-slate-400">{projectDetails[slug].solution}</p>
+            </div>
+          </section>
 
-      <section className="mb-10">
-        <h2 className="mb-3 text-xl font-medium text-slate-900 dark:text-slate-100">Method & Implementation</h2>
-        <p className="text-slate-600 dark:text-slate-400">
-          Stack, frameworks, and how it fits together. We’ll detail architectures and decisions here.
-        </p>
-      </section>
+          <section className="mb-10">
+            <h2 className="mb-3 text-xl font-medium text-slate-900 dark:text-slate-100">Method & Implementation</h2>
+            <p className="text-slate-600 dark:text-slate-400">{projectDetails[slug].method}</p>
+          </section>
 
-      <section className="mb-10">
-        <h2 className="mb-3 text-xl font-medium text-slate-900 dark:text-slate-100">Results & Performance</h2>
-        <p className="text-slate-600 dark:text-slate-400">Outcomes, metrics, and performance notes.</p>
-      </section>
+          <section className="mb-10">
+            <h2 className="mb-3 text-xl font-medium text-slate-900 dark:text-slate-100">Results & Performance</h2>
+            <p className="text-slate-600 dark:text-slate-400">{projectDetails[slug].results}</p>
+          </section>
+
+          <section className="mb-10">
+            <h2 className="mb-3 text-xl font-medium text-slate-900 dark:text-slate-100">Ongoing Work</h2>
+            <p className="text-slate-600 dark:text-slate-400">{projectDetails[slug].ongoing}</p>
+          </section>
+        </>
+      ) : (
+        <>
+          <section className="mb-10">
+            <h2 className="mb-3 text-xl font-medium text-slate-900 dark:text-slate-100">Project Overview</h2>
+            <p className="text-slate-600 dark:text-slate-400">
+              High‑level summary of the project’s purpose, scope, and audience.
+            </p>
+          </section>
+          <section className="mb-10 grid gap-6 sm:grid-cols-2">
+            <div>
+              <h3 className="mb-2 text-lg font-medium text-slate-900 dark:text-slate-100">Challenge</h3>
+              <p className="text-slate-600 dark:text-slate-400">What problem were we solving?</p>
+            </div>
+            <div>
+              <h3 className="mb-2 text-lg font-medium text-slate-900 dark:text-slate-100">Solution</h3>
+              <p className="text-slate-600 dark:text-slate-400">A concise look at the core idea and approach.</p>
+            </div>
+          </section>
+          <section className="mb-10">
+            <h2 className="mb-3 text-xl font-medium text-slate-900 dark:text-slate-100">Method & Implementation</h2>
+            <p className="text-slate-600 dark:text-slate-400">Stack, frameworks, and how it fits together.</p>
+          </section>
+          <section className="mb-10">
+            <h2 className="mb-3 text-xl font-medium text-slate-900 dark:text-slate-100">Results & Performance</h2>
+            <p className="text-slate-600 dark:text-slate-400">Outcomes, metrics, and performance notes.</p>
+          </section>
+        </>
+      )}
 
       <Link to="/" className="text-blue-600 dark:text-blue-400 hover:underline">
         ← Back to Home

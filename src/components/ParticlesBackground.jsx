@@ -34,6 +34,7 @@ export default function ParticlesBackground() {
       dpr: Math.min(window.devicePixelRatio || 1, 2), // clamp to 2 for perf
       desktop: true,
       interactive: true, // disabled on mobile
+      brownian: false, // enable gentle random drift on mobile
       count: 0,
       linkDist: 120,
       nodeRadiusRange: [1.2, 2.2],
@@ -57,8 +58,10 @@ export default function ParticlesBackground() {
       state.height = window.innerHeight;
       state.desktop = state.width >= 768;
       state.interactive = state.desktop; // Disable interactivity on mobile
+      state.brownian = !state.desktop;   // Enable slow Brownian motion on mobile
       state.count = state.desktop ? 120 : 60;
-      state.linkDist = state.desktop ? 120 : 90;
+      state.linkDist = state.desktop ? 120 : 110; // slightly more links on mobile for fill
+      state.nodeRadiusRange = state.desktop ? [1.2, 2.2] : [1.0, 1.8];
       state.speed = state.desktop ? 0.06 : 0.03; // subtler motion on mobile
       canvas.width = Math.floor(state.width * state.dpr);
       canvas.height = Math.floor(state.height * state.dpr);
@@ -75,21 +78,48 @@ export default function ParticlesBackground() {
 
     const initParticles = () => {
       const arr = [];
-      for (let i = 0; i < state.count; i++) {
-        arr.push({
-          x: Math.random() * state.width,
-          y: Math.random() * state.height,
-          vx: rand(-1, 1) * state.speed,
-          vy: rand(-1, 1) * state.speed,
-          r: rand(state.nodeRadiusRange[0], state.nodeRadiusRange[1]),
-        });
+      if (state.desktop) {
+        // Uniform random distribution for desktop
+        for (let i = 0; i < state.count; i++) {
+          arr.push({
+            x: Math.random() * state.width,
+            y: Math.random() * state.height,
+            vx: rand(-1, 1) * state.speed,
+            vy: rand(-1, 1) * state.speed,
+            r: rand(state.nodeRadiusRange[0], state.nodeRadiusRange[1]),
+          });
+        }
+      } else {
+        // Stratified grid with jitter for even fill on mobile
+        const cols = Math.ceil(Math.sqrt((state.count * state.width) / state.height));
+        const rows = Math.ceil(state.count / cols);
+        const cellW = state.width / cols;
+        const cellH = state.height / rows;
+        let placed = 0;
+        for (let r = 0; r < rows && placed < state.count; r++) {
+          for (let c = 0; c < cols && placed < state.count; c++) {
+            const jitterX = rand(-0.35, 0.35) * cellW;
+            const jitterY = rand(-0.35, 0.35) * cellH;
+            const x = c * cellW + cellW / 2 + jitterX;
+            const y = r * cellH + cellH / 2 + jitterY;
+            arr.push({
+              x,
+              y,
+              // Small initial velocity; random direction
+              vx: rand(-1, 1) * state.speed * 0.6,
+              vy: rand(-1, 1) * state.speed * 0.6,
+              r: rand(state.nodeRadiusRange[0], state.nodeRadiusRange[1]),
+            });
+            placed++;
+          }
+        }
       }
       particlesRef.current = arr;
     };
 
     const integrate = (p, dt) => {
       // Cursor attraction with gentle spring
-      if (mouseRef.current.active) {
+      if (state.interactive && mouseRef.current.active) {
         const dx = mouseRef.current.x - p.x;
         const dy = mouseRef.current.y - p.y;
         const dist2 = dx * dx + dy * dy;
@@ -100,6 +130,17 @@ export default function ParticlesBackground() {
           p.vy += dy * factor;
         }
       }
+      // Gentle Brownian drift on mobile
+      if (state.brownian) {
+        p.vx += rand(-1, 1) * state.speed * 0.02;
+        p.vy += rand(-1, 1) * state.speed * 0.02;
+        // Cap velocity to keep motion very slow
+        const max = state.speed * 0.9;
+        if (p.vx > max) p.vx = max;
+        if (p.vx < -max) p.vx = -max;
+        if (p.vy > max) p.vy = max;
+        if (p.vy < -max) p.vy = -max;
+      }
       p.x += p.vx * dt;
       p.y += p.vy * dt;
       // Screen wrap
@@ -108,8 +149,8 @@ export default function ParticlesBackground() {
       if (p.y < -10) p.y = state.height + 10;
       else if (p.y > state.height + 10) p.y = -10;
       // Gentle velocity damping
-      p.vx *= 0.995;
-      p.vy *= 0.995;
+      p.vx *= state.brownian ? 0.999 : 0.995;
+      p.vy *= state.brownian ? 0.999 : 0.995;
     };
 
     const draw = (ts) => {
@@ -146,7 +187,7 @@ export default function ParticlesBackground() {
               if (md2 < 160 * 160) alpha = Math.min(1, alpha * 1.5);
             }
             ctx.strokeStyle = `rgba(${colors.link}, ${alpha})`;
-            ctx.lineWidth = 0.6;
+            ctx.lineWidth = state.desktop ? 0.6 : 0.5;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);

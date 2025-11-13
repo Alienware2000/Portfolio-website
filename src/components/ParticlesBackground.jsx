@@ -15,6 +15,7 @@ export default function ParticlesBackground() {
   const lastTsRef = useRef(0);
   const mouseRef = useRef({ x: -9999, y: -9999, active: false });
   const pausedRef = useRef(false);
+  const interactionsAttachedRef = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -32,10 +33,11 @@ export default function ParticlesBackground() {
       height: 0,
       dpr: Math.min(window.devicePixelRatio || 1, 2), // clamp to 2 for perf
       desktop: true,
+      interactive: true, // disabled on mobile
       count: 0,
       linkDist: 120,
       nodeRadiusRange: [1.2, 2.2],
-      speed: 0.06, // base pixel per ms
+      speed: 0.06, // base pixel per ms (desktop)
     };
 
     const getVars = () => {
@@ -54,8 +56,10 @@ export default function ParticlesBackground() {
       state.width = window.innerWidth;
       state.height = window.innerHeight;
       state.desktop = state.width >= 768;
+      state.interactive = state.desktop; // Disable interactivity on mobile
       state.count = state.desktop ? 120 : 60;
       state.linkDist = state.desktop ? 120 : 90;
+      state.speed = state.desktop ? 0.06 : 0.03; // subtler motion on mobile
       canvas.width = Math.floor(state.width * state.dpr);
       canvas.height = Math.floor(state.height * state.dpr);
       canvas.style.width = `${state.width}px`;
@@ -63,6 +67,8 @@ export default function ParticlesBackground() {
       ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
       initParticles();
       draw(0); // draw once on resize
+      // Update interaction listeners based on current mode
+      updateInteractionListeners();
     };
 
     const rand = (min, max) => Math.random() * (max - min) + min;
@@ -169,12 +175,21 @@ export default function ParticlesBackground() {
     };
 
     const handleMouse = (e) => {
+      if (!state.interactive) return;
       mouseRef.current.x = e.clientX;
       mouseRef.current.y = e.clientY;
       mouseRef.current.active = true;
     };
     const handleLeave = () => {
       mouseRef.current.active = false;
+    };
+    const handleTouchMove = (e) => {
+      if (!state.interactive) return;
+      if (e.touches && e.touches[0]) {
+        mouseRef.current.x = e.touches[0].clientX;
+        mouseRef.current.y = e.touches[0].clientY;
+        mouseRef.current.active = true;
+      }
     };
     const handleVisibility = () => {
       pausedRef.current = document.hidden;
@@ -184,20 +199,38 @@ export default function ParticlesBackground() {
       }
     };
 
-    window.addEventListener("resize", resize);
-    window.addEventListener("mousemove", handleMouse, { passive: true });
-    window.addEventListener("touchmove", (e) => {
-      if (e.touches && e.touches[0]) {
-        mouseRef.current.x = e.touches[0].clientX;
-        mouseRef.current.y = e.touches[0].clientY;
-        mouseRef.current.active = true;
+    const addInteractionListeners = () => {
+      if (interactionsAttachedRef.current) return;
+      window.addEventListener("mousemove", handleMouse, { passive: true });
+      window.addEventListener("mouseleave", handleLeave);
+      window.addEventListener("touchmove", handleTouchMove, { passive: true });
+      window.addEventListener("touchend", handleLeave);
+      interactionsAttachedRef.current = true;
+    };
+
+    const removeInteractionListeners = () => {
+      if (!interactionsAttachedRef.current) return;
+      window.removeEventListener("mousemove", handleMouse);
+      window.removeEventListener("mouseleave", handleLeave);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleLeave);
+      interactionsAttachedRef.current = false;
+    };
+
+    const updateInteractionListeners = () => {
+      if (state.interactive) addInteractionListeners();
+      else {
+        removeInteractionListeners();
+        mouseRef.current.active = false; // ensure no forces applied
       }
-    }, { passive: true });
-    window.addEventListener("mouseleave", handleLeave);
-    window.addEventListener("touchend", handleLeave);
+    };
+
+    window.addEventListener("resize", resize);
     document.addEventListener("visibilitychange", handleVisibility);
 
     resize();
+    // Attach or detach interaction listeners based on initial mode
+    updateInteractionListeners();
     if (!prefersReduced) {
       rafRef.current = requestAnimationFrame(draw);
     } else {
@@ -207,10 +240,7 @@ export default function ParticlesBackground() {
 
     return () => {
       window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", handleMouse);
-      window.removeEventListener("mouseleave", handleLeave);
-      window.removeEventListener("touchmove", () => {});
-      window.removeEventListener("touchend", handleLeave);
+      removeInteractionListeners();
       document.removeEventListener("visibilitychange", handleVisibility);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = 0;

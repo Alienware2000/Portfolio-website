@@ -97,7 +97,15 @@ export default function ProjectDetail() {
         </h1>
         {(project.status || project.started) && (
           <div className="mb-2">
-            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[11px] text-slate-600 dark:text-slate-300">
+            <span
+              className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] ${
+                project.status && String(project.status).toLowerCase() === "complete"
+                  ? "border-emerald-500/30 bg-emerald-400/10 text-emerald-300"
+                  : project.status && String(project.status).toLowerCase() === "in progress"
+                  ? "border-amber-400/30 bg-amber-300/10 text-amber-300"
+                  : "border-white/10 bg-white/5 text-slate-600 dark:text-slate-300"
+              }`}
+            >
               {project.status ? project.status : null}{project.status && project.started ? " · " : ""}{project.started ? project.started : null}
             </span>
           </div>

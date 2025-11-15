@@ -8,6 +8,18 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProjectCard({ title, description, tags = [], link, slug, status, started }) {
   const navigate = useNavigate();
+
+  const getStatusClasses = (s) => {
+    if (!s) return "border-white/10 bg-white/5 text-slate-600 dark:text-slate-300";
+    const normalized = String(s).toLowerCase();
+    if (normalized === "complete" || normalized === "completed") {
+      return "border-emerald-500/30 bg-emerald-400/10 text-emerald-300";
+    }
+    if (normalized === "in progress" || normalized === "ongoing") {
+      return "border-amber-400/30 bg-amber-300/10 text-amber-300";
+    }
+    return "border-white/10 bg-white/5 text-slate-600 dark:text-slate-300";
+  };
   return (
     <motion.article
       className="space-y-3 p-6 rounded-lg border border-white/20 dark:border-white/10
@@ -34,7 +46,7 @@ export default function ProjectCard({ title, description, tags = [], link, slug,
       </h3>
       {(status || started) && (
         <div>
-          <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[11px] text-slate-600 dark:text-slate-300">
+          <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] ${getStatusClasses(status)}`}>
             {status ? status : null}{status && started ? " · " : ""}{started ? started : null}
           </span>
         </div>

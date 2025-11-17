@@ -12,6 +12,11 @@ export default function Home() {
       <main className="mx-auto max-w-5xl px-6 pt-10 sm:pt-14">
         <Hero />
 
+        {/* Experience Section */}
+        <Section id="experience" title="Experience" full className="scroll-mt-28 pt-20 sm:pt-24 pb-24">
+          <Experience />
+        </Section>
+
         {/* Projects Section */}
         <Section id="projects" title="Projects" full className="scroll-mt-8 pt-10 sm:pt-12 pb-24">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
@@ -19,12 +24,7 @@ export default function Home() {
               <ProjectCard key={p.title} {...p} />
             ))}
           </div>
-          <NextSectionButton href="#experience" variant="inline" offset={0} />
-        </Section>
-
-        {/* Experience Section */}
-        <Section id="experience" title="Experience" full className="scroll-mt-28 pt-20 sm:pt-24 pb-24">
-          <Experience />
+          <NextSectionButton href="#about" variant="inline" offset={0} />
         </Section>
 
         {/* About Section - 3 horizontal paragraphs with borders, vertically centered */}

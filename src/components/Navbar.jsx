@@ -62,6 +62,7 @@ export default function Navbar() {
   // Rely on Tailwind scroll-mt-* per section for anchor landing
 
   const navLinks = [
+    // Keeping links minimal; Experience can be reached via chevron from Hero
     { href: "#projects", label: "Projects" },
     { href: "#about", label: "About" },
     { href: "#skills", label: "Skills" },

@@ -4,18 +4,12 @@ import { projects } from "../data/projects.js";
 import Section from "./Section.jsx";
 import NextSectionButton from "./NextSectionButton.jsx";
 import Skills from "./Skills.jsx";
-import Experience from "./Experience.jsx";
 
 export default function Home() {
   return (
     <>
       <main className="mx-auto max-w-5xl px-6 pt-10 sm:pt-14">
         <Hero />
-
-        {/* Experience Section */}
-        <Section id="experience" title="Experience" full className="scroll-mt-28 pt-20 sm:pt-24 pb-24">
-          <Experience />
-        </Section>
 
         {/* Projects Section */}
         <Section id="projects" title="Projects" full className="scroll-mt-8 pt-10 sm:pt-12 pb-24">

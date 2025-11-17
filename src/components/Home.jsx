@@ -4,6 +4,7 @@ import { projects } from "../data/projects.js";
 import Section from "./Section.jsx";
 import NextSectionButton from "./NextSectionButton.jsx";
 import Skills from "./Skills.jsx";
+import Experience from "./Experience.jsx";
 
 export default function Home() {
   return (
@@ -18,7 +19,12 @@ export default function Home() {
               <ProjectCard key={p.title} {...p} />
             ))}
           </div>
-          <NextSectionButton href="#about" variant="inline" offset={0} />
+          <NextSectionButton href="#experience" variant="inline" offset={0} />
+        </Section>
+
+        {/* Experience Section */}
+        <Section id="experience" title="Experience" full className="scroll-mt-28 pt-20 sm:pt-24 pb-24">
+          <Experience />
         </Section>
 
         {/* About Section - 3 horizontal paragraphs with borders, vertically centered */}

@@ -12,7 +12,7 @@ export default function Home() {
         <Hero />
 
         {/* Projects Section */}
-        <Section id="projects" title="Projects" full className="scroll-mt-8 pt-10 sm:pt-12 pb-24">
+        <Section id="projects" title="Projects" full className="scroll-mt-[10px] pt-10 sm:pt-12 pb-24">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((p) => (
               <ProjectCard key={p.title} {...p} />

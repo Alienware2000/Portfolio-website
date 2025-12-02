@@ -152,7 +152,7 @@ export default function ProjectDetail() {
                        hover:ring-1 hover:ring-cyan-400/25 focus-visible:outline-none
                        focus-visible:ring-2 focus-visible:ring-cyan-400/40"
           >
-            View on GitHub
+            {project.link && project.link.includes("github.com") ? "View on GitHub" : "View Live Site"}
             <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
           </a>
           <a

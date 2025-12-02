@@ -1,5 +1,14 @@
 export const projects = [
   {
+    slug: "zayfinds",
+    title: "ZAYFINDS",
+    description: "A curated e-commerce discovery platform for affordable replica fashion and lifestyle products. It aggregates products from trusted sellers and provides a clean browsing experience with search, filtering, and direct links to external sellers.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "E-commerce", "Product Discovery"],
+    status: "In progress",
+    started: "2025",
+    link: "https://zayfinds.vercel.app/"
+  },
+  {
     slug: "exosense",
     title: "ExoSense",
     description: "A wearable device that tracks body movement in real-time using multiple sensors. Useful for sports analysis, physical therapy, and motion capture applications.",

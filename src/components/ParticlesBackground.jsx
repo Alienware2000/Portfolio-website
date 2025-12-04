@@ -79,47 +79,81 @@ export default function ParticlesBackground() {
 
     const initParticles = () => {
       const arr = [];
-      if (state.desktop) {
-        // Uniform random distribution for desktop
-        for (let i = 0; i < state.count; i++) {
+      const minDist = 50; // Slightly larger minimum distance
+      const maxAttempts = 30; // Max attempts to place a particle
+      
+      // Improved grid-based distribution for all devices
+      const aspectRatio = state.width / state.height;
+      const cols = Math.ceil(Math.sqrt(state.count * aspectRatio));
+      const rows = Math.ceil(state.count / cols);
+      const cellW = state.width / cols;
+      const cellH = state.height / rows;
+      
+      // Reduced jitter for better spacing
+      const jitterAmount = 0.2; // Even less jitter
+      
+      let placed = 0;
+      for (let r = 0; r < rows && placed < state.count; r++) {
+        for (let c = 0; c < cols && placed < state.count; c++) {
+          // Center position in cell
+          const baseX = c * cellW + cellW / 2;
+          const baseY = r * cellH + cellH / 2;
+          
+          // Try to place with minimum distance constraint
+          let x, y;
+          let attempts = 0;
+          let valid = false;
+          
+          while (!valid && attempts < maxAttempts) {
+            const jitterX = rand(-jitterAmount, jitterAmount) * cellW;
+            const jitterY = rand(-jitterAmount, jitterAmount) * cellH;
+            x = baseX + jitterX;
+            y = baseY + jitterY;
+            
+            // Keep particles away from edges (padding)
+            const padding = 30; // Increased padding
+            if (x < padding || x > state.width - padding || 
+                y < padding || y > state.height - padding) {
+              attempts++;
+              continue;
+            }
+            
+            // Check minimum distance from existing particles
+            valid = true;
+            for (let i = 0; i < arr.length; i++) {
+              const dx = x - arr[i].x;
+              const dy = y - arr[i].y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < minDist) {
+                valid = false;
+                break;
+              }
+            }
+            attempts++;
+          }
+          
+          // If we couldn't find a valid spot, use the base position anyway
+          if (!valid) {
+            x = baseX;
+            y = baseY;
+          }
+          
           arr.push({
-            x: Math.random() * state.width,
-            y: Math.random() * state.height,
-            vx: rand(-1, 1) * state.speed,
-            vy: rand(-1, 1) * state.speed,
+            x,
+            y,
+            vx: rand(-1, 1) * state.speed * 0.6,
+            vy: rand(-1, 1) * state.speed * 0.6,
             r: rand(state.nodeRadiusRange[0], state.nodeRadiusRange[1]),
           });
-        }
-      } else {
-        // Stratified grid with jitter for even fill on mobile
-        const cols = Math.ceil(Math.sqrt((state.count * state.width) / state.height));
-        const rows = Math.ceil(state.count / cols);
-        const cellW = state.width / cols;
-        const cellH = state.height / rows;
-        let placed = 0;
-        for (let r = 0; r < rows && placed < state.count; r++) {
-          for (let c = 0; c < cols && placed < state.count; c++) {
-            const jitterX = rand(-0.35, 0.35) * cellW;
-            const jitterY = rand(-0.35, 0.35) * cellH;
-            const x = c * cellW + cellW / 2 + jitterX;
-            const y = r * cellH + cellH / 2 + jitterY;
-            arr.push({
-              x,
-              y,
-              // Small initial velocity; random direction
-              vx: rand(-1, 1) * state.speed * 0.6,
-              vy: rand(-1, 1) * state.speed * 0.6,
-              r: rand(state.nodeRadiusRange[0], state.nodeRadiusRange[1]),
-            });
-            placed++;
-          }
+          placed++;
         }
       }
+      
       particlesRef.current = arr;
     };
 
     const integrate = (p, dt) => {
-      // Cursor attraction with gentle spring
+      // Cursor attraction (if interactive)
       if (state.interactive && mouseRef.current.active) {
         const dx = mouseRef.current.x - p.x;
         const dy = mouseRef.current.y - p.y;
@@ -131,32 +165,70 @@ export default function ParticlesBackground() {
           p.vy += dy * factor;
         }
       }
-      // Gentle Brownian drift on mobile
+      
+      // Brownian motion - keep it natural
       if (state.brownian) {
-        p.vx += rand(-1, 1) * state.speed * 0.02;
-        p.vy += rand(-1, 1) * state.speed * 0.02;
-        // Cap velocity to keep motion very slow
-        const max = state.speed * 0.9;
+        p.vx += rand(-1, 1) * state.speed * 0.015; // Restore natural Brownian
+        p.vy += rand(-1, 1) * state.speed * 0.015;
+        
+        // Cap velocity
+        const max = state.speed * 0.8;
         if (p.vx > max) p.vx = max;
         if (p.vx < -max) p.vx = -max;
         if (p.vy > max) p.vy = max;
         if (p.vy < -max) p.vy = -max;
       }
+      
       p.x += p.vx * dt;
       p.y += p.vy * dt;
-      // Screen wrap
-      if (p.x < -10) p.x = state.width + 10;
-      else if (p.x > state.width + 10) p.x = -10;
-      if (p.y < -10) p.y = state.height + 10;
-      else if (p.y > state.height + 10) p.y = -10;
+      
+      // Screen wrap with corner avoidance - this is the key fix
+      const cornerAvoidDist = 80; // Distance from corner to avoid
+      const cornerPush = 0.0003; // Subtle push away from corners
+      
+      // Check and avoid corners
+      const distToTopLeft = Math.sqrt(p.x * p.x + p.y * p.y);
+      const distToTopRight = Math.sqrt((state.width - p.x) * (state.width - p.x) + p.y * p.y);
+      const distToBottomLeft = Math.sqrt(p.x * p.x + (state.height - p.y) * (state.height - p.y));
+      const distToBottomRight = Math.sqrt((state.width - p.x) * (state.width - p.x) + (state.height - p.y) * (state.height - p.y));
+      
+      // Push away from nearest corner
+      if (distToTopLeft < cornerAvoidDist) {
+        p.vx += cornerPush;
+        p.vy += cornerPush;
+      }
+      if (distToTopRight < cornerAvoidDist) {
+        p.vx -= cornerPush;
+        p.vy += cornerPush;
+      }
+      if (distToBottomLeft < cornerAvoidDist) {
+        p.vx += cornerPush;
+        p.vy -= cornerPush;
+      }
+      if (distToBottomRight < cornerAvoidDist) {
+        p.vx -= cornerPush;
+        p.vy -= cornerPush;
+      }
+      
+      // Screen wrap (natural, no clustering)
+      if (p.x < 0) p.x = state.width;
+      else if (p.x > state.width) p.x = 0;
+      if (p.y < 0) p.y = state.height;
+      else if (p.y > state.height) p.y = 0;
+      
       // Gentle velocity damping
-      p.vx *= state.brownian ? 0.999 : 0.995;
-      p.vy *= state.brownian ? 0.999 : 0.995;
+      p.vx *= 0.998;
+      p.vy *= 0.998;
     };
 
     const draw = (ts) => {
       if (pausedRef.current) return;
-      const dt = lastTsRef.current ? Math.min(32, ts - lastTsRef.current) : 16;
+      // Consistent frame timing to prevent scroll jitter
+      const targetFPS = 60;
+      const targetDt = 1000 / targetFPS;
+      const dt = lastTsRef.current 
+        ? Math.min(targetDt * 2, Math.max(targetDt * 0.5, ts - lastTsRef.current))
+        : targetDt;
       lastTsRef.current = ts;
       ctx.clearRect(0, 0, state.width, state.height);
 

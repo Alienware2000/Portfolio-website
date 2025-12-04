@@ -53,26 +53,36 @@ export default function ParticlesBackground() {
 
     const colors = getVars();
 
+    let resizeTimeout = null;
     const resize = () => {
-      state.width = window.innerWidth;
-      state.height = window.innerHeight;
-      state.desktop = state.width >= 768;
-      // Disable interactivity for ALL devices; enable subtle Brownian motion
-      state.interactive = false;
-      state.brownian = true;
-      state.count = state.desktop ? 120 : 60;
-      state.linkDist = state.desktop ? 120 : 110; // keep good fill
-      state.nodeRadiusRange = state.desktop ? [1.2, 2.2] : [1.0, 1.8];
-      state.speed = state.desktop ? 0.04 : 0.03; // subtle motion everywhere
-      canvas.width = Math.floor(state.width * state.dpr);
-      canvas.height = Math.floor(state.height * state.dpr);
-      canvas.style.width = `${state.width}px`;
-      canvas.style.height = `${state.height}px`;
-      ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
-      initParticles();
-      draw(0); // draw once on resize
-      // Update interaction listeners based on current mode
-      updateInteractionListeners();
+      // Debounce resize to prevent constant resizing during scroll bounce
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+      }
+      
+      resizeTimeout = setTimeout(() => {
+        // Use visualViewport if available (more stable on mobile Safari/Chrome)
+        const vp = window.visualViewport || window;
+        state.width = vp.innerWidth || window.innerWidth;
+        state.height = vp.innerHeight || window.innerHeight;
+        state.desktop = state.width >= 768;
+        // Disable interactivity for ALL devices; enable subtle Brownian motion
+        state.interactive = false;
+        state.brownian = true;
+        state.count = state.desktop ? 120 : 60;
+        state.linkDist = state.desktop ? 120 : 110; // keep good fill
+        state.nodeRadiusRange = state.desktop ? [1.2, 2.2] : [1.0, 1.8];
+        state.speed = state.desktop ? 0.04 : 0.03; // subtle motion everywhere
+        canvas.width = Math.floor(state.width * state.dpr);
+        canvas.height = Math.floor(state.height * state.dpr);
+        canvas.style.width = `${state.width}px`;
+        canvas.style.height = `${state.height}px`;
+        ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+        initParticles();
+        draw(0); // draw once on resize
+        // Update interaction listeners based on current mode
+        updateInteractionListeners();
+      }, 200); // 200ms debounce - prevents resize during scroll bounce
     };
 
     const rand = (min, max) => Math.random() * (max - min) + min;
@@ -223,12 +233,24 @@ export default function ParticlesBackground() {
 
     const draw = (ts) => {
       if (pausedRef.current) return;
-      // Consistent frame timing to prevent scroll jitter
+      
+      // Much stricter dt clamping to prevent scroll glitches
       const targetFPS = 60;
       const targetDt = 1000 / targetFPS;
-      const dt = lastTsRef.current 
-        ? Math.min(targetDt * 2, Math.max(targetDt * 0.5, ts - lastTsRef.current))
+      let dt = lastTsRef.current 
+        ? ts - lastTsRef.current
         : targetDt;
+      
+      // Aggressively clamp dt to prevent speed spikes during scroll bounce
+      // Allow 0.5x to 1.2x of target dt (very tight range)
+      dt = Math.max(targetDt * 0.5, Math.min(targetDt * 1.2, dt));
+      
+      // If dt is still too large (extreme case), use target dt
+      if (dt > targetDt * 1.2) {
+        dt = targetDt;
+        lastTsRef.current = ts - targetDt; // Adjust lastTs to prevent accumulation
+      }
+      
       lastTsRef.current = ts;
       ctx.clearRect(0, 0, state.width, state.height);
 
@@ -362,6 +384,7 @@ export default function ParticlesBackground() {
     }
 
     return () => {
+      if (resizeTimeout) clearTimeout(resizeTimeout);
       window.removeEventListener("resize", resize);
       removeInteractionListeners();
       document.removeEventListener("visibilitychange", handleVisibility);

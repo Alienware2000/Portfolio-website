@@ -31,7 +31,20 @@ export default function Home() {
                   src="https://media.licdn.com/dms/image/v2/D4E03AQFOO8vL-9kCzw/profile-displayphoto-shrink_400_400/B4EZO2tSGKHwAk-/0/1733937144856?e=1766620800&v=beta&t=v_CxlQSSedfkOesvugjEOUFTp60mqbioAWqpSC8__hY"
                   alt="David Antwi"
                   className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-2 border-white/20 dark:border-white/10 shadow-lg"
+                  onError={(e) => {
+                    // If image fails, show fallback initials
+                    e.target.style.display = 'none';
+                    const fallback = e.target.nextElementSibling;
+                    if (fallback) fallback.style.display = 'flex';
+                  }}
                 />
+                {/* Fallback initials if image fails */}
+                <div 
+                  className="hidden w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-indigo-500/20 border-2 border-white/20 dark:border-white/10 shadow-lg items-center justify-center"
+                  style={{ display: 'none' }}
+                >
+                  <span className="text-3xl sm:text-4xl font-medium text-slate-700 dark:text-slate-300">DA</span>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

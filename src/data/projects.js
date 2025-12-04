@@ -6,7 +6,8 @@ export const projects = [
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "E-commerce", "Product Discovery"],
     status: "In progress",
     started: "2025",
-    link: "https://zayfinds.vercel.app/"
+    link: "https://zayfinds.vercel.app/",
+    thumbnail: "https://zayfinds.vercel.app/og-image.png"
   },
   {
     slug: "exosense",

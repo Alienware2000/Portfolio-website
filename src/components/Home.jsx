@@ -24,7 +24,17 @@ export default function Home() {
         {/* About Section - 3 horizontal paragraphs with borders, vertically centered */}
         <Section id="about" title="About" full className="scroll-mt-28 pt-20 sm:pt-24 pb-24">
           <div className="flex items-center flex-1 min-h-0">
-            <div className="mx-auto max-w-6xl w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="mx-auto max-w-6xl w-full">
+              {/* Profile Image */}
+              <div className="flex justify-center mb-12">
+                <img
+                  src="https://media.licdn.com/dms/image/v2/D4E03AQFOO8vL-9kCzw/profile-displayphoto-shrink_400_400/B4EZO2tSGKHwAk-/0/1733937144856?e=1766620800&v=beta&t=v_CxlQSSedfkOesvugjEOUFTp60mqbioAWqpSC8__hY"
+                  alt="David Antwi"
+                  className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-2 border-white/20 dark:border-white/10 shadow-lg"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-6 rounded-lg border border-white/20 dark:border-white/10 bg-transparent">
                 <p className="text-base leading-relaxed text-slate-600 dark:text-slate-400">
                   I'm an Electrical Engineering and Computer Science student at Yale University, graduating in May 2028.
@@ -50,6 +60,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
+          </div>
           </div>
           {/* No chevron here to keep the section clean once reached */}
         </Section>

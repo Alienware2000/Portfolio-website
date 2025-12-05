@@ -28,6 +28,14 @@ export const projects = [
     link: "https://github.com/Alienware2000/game-agents"
   },
   {
+    slug: "journal-ai",
+    title: "Journal.ai",
+    description: "A voice-based journaling platform that turns unstructured thoughts into clear, meaningful writing. It lets users record or type entries, uses Whisper to transcribe audio, and then applies LLM-powered rewriting, reflection, and summarization modes to produce cleaner versions, insights, themes, and personal takeaways.",
+    tags: ["Next.js", "Supabase", "Prisma", "OpenAI", "Streaming", "Whisper"],
+    status: "In progress",
+    started: "2025"
+  },
+  {
     slug: "academic-matcher",
     title: "Academic Matcher",
     description: "A smart search tool that helps students find research labs that match their interests. Uses AI to understand what professors work on and connects students with the right opportunities.",

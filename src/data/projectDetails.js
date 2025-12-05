@@ -40,6 +40,20 @@ export const projectDetails = {
       "End to end verified: launched the MCP server, connected with MCP Inspector, invoked tools, observed live world updates, and crafted using protocol calls. This lifts the environment from a local Python loop to a portable, externally controlled tool API, laying the foundation for an LLM planner next.",
     ongoing:
       "Next milestones: integrate an LLM planner (Milestone 5) for decision making from observations, and add a second game world (Milestone 6) using Pygame or a custom design. Repository: https://github.com/Alienware2000/game-agents"
+  },
+  "journal-ai": {
+    overview:
+      "Journal.ai is a voice-based journaling platform that transforms unstructured thoughts into clear, meaningful writing. Users can record voice entries or type directly, and the platform uses OpenAI's Whisper API to transcribe audio recordings. The transcribed or typed content is then processed through LLM-powered modes including rewriting (to produce cleaner, more polished versions), reflection (to extract insights and themes), and summarization (to create personal takeaways). The platform focuses on a simple, intuitive interface that makes it easy to capture thoughts quickly and convert them into something useful.",
+    challenge:
+      "Traditional journaling often results in unstructured, stream-of-consciousness entries that are difficult to revisit and extract value from. Voice journaling adds the convenience of speaking naturally, but raw transcriptions are often messy and lack clarity. Users need a way to capture thoughts quickly without friction, then transform those raw thoughts into organized, meaningful content that provides lasting value.",
+    solution:
+      "Journal.ai combines the ease of voice recording with AI-powered processing to bridge the gap between raw thoughts and meaningful writing. Users can capture thoughts naturally through voice or text, and the platform automatically transcribes audio using Whisper. Multiple processing modes—rewriting, reflection, and summarization—allow users to transform their entries into polished writing, extract insights and themes, and create actionable takeaways, all while maintaining the original entry for reference.",
+    method:
+      "Built with Next.js for the frontend and API routes, using Supabase for authentication and database storage, and Prisma as the ORM for type-safe database operations. The platform integrates OpenAI's Whisper API for audio transcription and OpenAI's GPT models for streaming LLM responses. The architecture supports real-time streaming of AI-generated content, ensuring users see results as they're generated rather than waiting for complete responses. The interface is designed with simplicity and speed in mind, prioritizing quick capture and easy navigation between original entries and processed versions.",
+    results:
+      "The platform successfully enables users to capture thoughts through voice or text, with reliable transcription quality from Whisper. The LLM processing modes (rewriting, reflection, summarization) produce useful transformations of raw entries, helping users extract more value from their journaling practice. The streaming implementation provides a responsive user experience, and the simple interface makes it easy to quickly capture and process thoughts.",
+    ongoing:
+      "This is an ongoing project that I plan to refine over the winter. Planned improvements include deeper analysis capabilities, long-term memory to track themes and patterns across entries over time, and a more polished product experience. The goal is to evolve Journal.ai into a comprehensive tool that not only captures thoughts but also helps users understand themselves better through their journaling practice."
   }
 };
 

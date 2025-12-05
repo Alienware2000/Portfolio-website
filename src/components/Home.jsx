@@ -28,7 +28,7 @@ export default function Home() {
               {/* Profile Image */}
               <div className="flex justify-center mb-12">
                 <img
-                  src="/images/image.png"
+                  src="https://media.licdn.com/dms/image/v2/D4E03AQFOO8vL-9kCzw/profile-displayphoto-shrink_400_400/B4EZO2tSGKHwAk-/0/1733937144856?e=1766620800&v=beta&t=v_CxlQSSedfkOesvugjEOUFTp60mqbioAWqpSC8__hY"
                   alt="David Antwi"
                   className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-2 border-white/20 dark:border-white/10 shadow-lg"
                   onError={(e) => {

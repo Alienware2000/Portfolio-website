@@ -50,26 +50,19 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-6 rounded-lg border border-white/20 dark:border-white/10 bg-transparent">
                 <p className="text-base leading-relaxed text-slate-600 dark:text-slate-400">
-                  I'm an Electrical Engineering and Computer Science student at Yale University, graduating in May 2028.
-                  I build intelligent systems that bridge hardware and software—from deploying quantized neural networks
-                  on microcontrollers to real-time sensor fusion and semantic search systems.
+                  I am an engineering student who learns by building. Most of what I know about computing, robotics, and AI comes from personal projects, lab work, and learning through doing. I am interested in how intelligent systems come together across hardware, software, and machine learning, and I enjoy working in spaces where ideas become prototypes and prototypes become tools that people can actually use. My work spans embedded systems, computer vision, full stack development, and agentic AI, but the common thread is curiosity and a desire to understand how things work at every level.
                 </p>
               </div>
 
               <div className="p-6 rounded-lg border border-white/20 dark:border-white/10 bg-transparent">
                 <p className="text-base leading-relaxed text-slate-600 dark:text-slate-400">
-                  Currently, I'm a Research Intern at The Faboratory at Yale, building wearable motion tracking systems
-                  with embedded sensor fusion. I'm also a Software Developer on the Yale Mars Rover Team, co-developing
-                  rover UI systems, and a Catalyst Mentor with the Yale Computer Science Society, guiding students
-                  through web development projects.
+                  At Yale, I spend most of my time in technical communities that let me build with others. I work in the Faboratory on soft robotic exosuits, where I design and test wearable sensing systems with microcontrollers, IMUs, and real-time motion pipelines. I help develop the computer vision and electronics stack for the Mars Rover Team, and I mentor students through the Catalyst program as they create their first full stack projects. I also work on personal experiments like agentic AI systems, an academic lab matcher, journaling tools powered by speech and LLMs, and small robotics and embedded projects that help me explore new directions.
                 </p>
               </div>
 
               <div className="p-6 rounded-lg border border-white/20 dark:border-white/10 bg-transparent">
                 <p className="text-base leading-relaxed text-slate-600 dark:text-slate-400">
-                  Previously, I worked as an ML Research Intern with the MISE Research Program in Ghana, where I trained
-                  CNNs for EEG signal decoding, built TinyML malaria diagnosis systems achieving 93% on-device accuracy,
-                  and developed ML classifiers for drug combination prediction.
+                  I care about making things that are useful and accessible. I want to help build the next generation of tools, learning systems, and intelligent interfaces that support people in their daily lives and help them understand technology rather than fear it. This drives my interest in AI, robotics, education, and the intersection of human creativity and computational systems. I see my portfolio as a record of the ideas I have explored so far and a starting point for the projects I want to build next.
                 </p>
               </div>
             </div>

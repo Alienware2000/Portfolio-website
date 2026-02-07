@@ -6,3 +6,5 @@ My personal portfolio built with **Vite + React + Tailwind CSS**.
 ```bash
 npm install
 npm run dev
+
+soon...

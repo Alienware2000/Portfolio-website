@@ -1,151 +1,135 @@
-/**
- * Hero Component
- * Main landing section with typewriter effect
- * Clean, minimal presentation
- */
-import { useRef } from "react";
-import { useInView, motion } from "framer-motion";
-import NextSectionButton from "./NextSectionButton.jsx";
+import { Github, Linkedin, Mail, FileText, Twitter, ChevronDown } from "lucide-react";
+import { profile, stats, now } from "../data/profile.js";
 import Typewriter from "./Typewriter.jsx";
 
-export default function Hero() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { amount: 0.6 });
+const LINKS = [
+  { href: profile.github, label: "GitHub", Icon: Github },
+  { href: profile.linkedin, label: "LinkedIn", Icon: Linkedin },
+  { href: profile.x, label: "X", Icon: Twitter },
+];
 
-  const scrollToWithOffset = (hash, offset = 64) => {
-    const el = document.querySelector(hash);
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const top = (window.scrollY || window.pageYOffset) + rect.top - offset;
-    window.scrollTo({ top, behavior: "smooth" });
-  };
-
+function Buttons({ onResume, center }) {
   return (
-    <section
-      id="hero"
-      ref={ref}
-      className="relative min-h-[90vh] grid place-content-center text-center"
-    >
-
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: 1.8 }}
-        className="mx-auto max-w-3xl px-2"
-      >
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-medium tracking-tight
-                       text-slate-900 dark:text-slate-100
-                       leading-[1.08] mb-4 whitespace-nowrap">
-          <Typewriter text="I'm David Antwi" baseSpeed={140} startDelay={1800} />
-        </h1>
-
-        {/* Prompt line */}
-        <motion.p
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.0, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-          className="font-mono text-base sm:text-lg text-slate-600/90 dark:text-slate-400/90 mb-6"
-        >
-          {"> Engineering across hardware + software"}
-        </motion.p>
-
-        {/* One sentence value statement */}
-        <motion.p
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.2, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          className="text-xl sm:text-2xl text-slate-700 dark:text-slate-300
-                     font-normal leading-relaxed mb-8"
-        >
-          I design and build intelligent systems that bridge silicon and software.
-        </motion.p>
-
-        {/* 2-3 line paragraph with focus areas */}
-        <motion.p
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.4, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          className="mx-auto max-w-2xl text-base sm:text-lg
-                     leading-relaxed text-slate-600 dark:text-slate-400 mb-12"
-        >
-          Yale EECS student and Research Intern working across embedded systems, TinyML, sensor fusion, and semantic search.
-          Lately, I have been deploying quantized neural networks on microcontrollers and building wearable motion tracking systems.
-        </motion.p>
-
-        {/* Primary CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.6, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          className="flex items-center justify-center mb-4"
-        >
-          <a
-            href="#projects"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToWithOffset('#projects', 10);
-            }}
-            className="text-sm text-slate-700 dark:text-slate-300
-                       hover:text-slate-900 dark:hover:text-slate-100
-                       hover:underline underline-offset-2
-                       transition-colors duration-200"
-          >
-            Explore Projects
+    <div className={`flex flex-wrap items-center gap-3 ${center ? "justify-center" : ""}`}>
+      <a href="#experience" className="btn btn-primary">
+        View my work <ChevronDown size={14} aria-hidden="true" />
+      </a>
+      <a href={profile.resume} onClick={onResume} className="btn">
+        <FileText size={14} aria-hidden="true" /> Resume
+      </a>
+      <span className="flex gap-1">
+        {LINKS.map((l) => (
+          <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer" aria-label={l.label} title={l.label} className="p-2.5 text-mute transition-colors hover:text-ember">
+            <l.Icon size={18} aria-hidden="true" />
           </a>
-        </motion.div>
+        ))}
+        <a href={`mailto:${profile.email}`} aria-label="Email" title="Email" className="p-2.5 text-mute transition-colors hover:text-ember">
+          <Mail size={18} aria-hidden="true" />
+        </a>
+      </span>
+    </div>
+  );
+}
 
-        {/* Secondary CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.8, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          className="flex flex-wrap items-center justify-center gap-4"
-        >
-          <a
-            href="https://github.com/Alienware2000"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-slate-700 dark:text-slate-300
-                       hover:text-slate-900 dark:hover:text-slate-100
-                       hover:underline underline-offset-2
-                       transition-colors duration-200"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://www.linkedin.com/in/david-antwi-b17727205/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-slate-700 dark:text-slate-300
-                       hover:text-slate-900 dark:hover:text-slate-100
-                       hover:underline underline-offset-2
-                       transition-colors duration-200"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="https://docs.google.com/document/d/1dG3RB7G0t2EGW9VvXpHzEef261Usfg7uScn-jP6IdEE/edit?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-slate-700 dark:text-slate-300
-                       hover:text-slate-900 dark:hover:text-slate-100
-                       hover:underline underline-offset-2
-                       transition-colors duration-200"
-          >
-            Resume
-          </a>
-          <a
-            href="mailto:antwidavid389@gmail.com?subject=Hi%20David%20%E2%80%94%20from%20your%20portfolio&body=Hi%20David,"
-            className="text-sm text-slate-700 dark:text-slate-300
-                       hover:text-slate-900 dark:hover:text-slate-100
-                       hover:underline underline-offset-2
-                       transition-colors duration-200"
-          >
-            Email
-          </a>
-        </motion.div>
-      </motion.div>
-      <NextSectionButton href="#projects" show={inView} offset={10} />
+function Status() {
+  return (
+    <p className="font-mono text-xs text-mint">
+      <span className="blink mr-2 inline-block h-2 w-2 bg-mint" aria-hidden="true" />
+      {profile.status}
+    </p>
+  );
+}
+
+function Portrait({ className = "" }) {
+  return <img src="/images/image.png" alt="David Antwi" width="400" height="400" className={`border-2 border-ember object-cover ${className}`} />;
+}
+
+/** The numbers a recruiter is scanning for, plus what I'm doing right now */
+function HudStrip() {
+  return (
+    <div className="border-y border-line py-6">
+      <ul className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-4">
+        {stats.map((s) => (
+          <li key={s.label}>
+            <p className="font-mono text-2xl font-medium text-gold sm:text-3xl">{s.value}</p>
+            <p className="mt-1 text-sm text-mute">{s.label}</p>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-6 text-sm text-mute">
+        <span className="mr-2 font-mono text-xs uppercase tracking-widest text-ember">Now</span>
+        {now.join(" · ")}
+      </p>
+    </div>
+  );
+}
+
+/** Default: small portrait beside the typewriter name, everything left-aligned */
+function Split({ onResume, ready }) {
+  return (
+    <div className="flex min-h-[calc(100vh-17rem)] flex-col justify-center py-14">
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
+        <Portrait className="h-20 w-20 shrink-0 sm:h-24 sm:w-24" />
+        <div>
+          <p className="label mb-2">{profile.school}</p>
+          <h1 className="text-4xl font-medium leading-[1.05] tracking-tight text-ink sm:text-6xl">
+            <Typewriter text="I'm David Antwi" start={ready} />
+          </h1>
+        </div>
+      </div>
+      <p className="mt-7 font-mono text-sm text-mute">{`> ${profile.role} · ${profile.focus}`}</p>
+      <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink/90 sm:text-xl">{profile.tagline}</p>
+      <div className="mt-5"><Status /></div>
+      <div className="mt-8"><Buttons onResume={onResume} /></div>
+    </div>
+  );
+}
+
+/** The original look: centered, nothing but type over the particle field */
+function Minimal({ onResume, ready }) {
+  return (
+    <div className="grid min-h-[calc(100vh-12rem)] place-content-center py-16 text-center">
+      <h1 className="text-5xl font-medium leading-[1.08] tracking-tight text-ink sm:text-6xl lg:text-7xl">
+        <Typewriter text="I'm David Antwi" start={ready} />
+      </h1>
+      <p className="mt-5 font-mono text-sm text-mute sm:text-base">{`> ${profile.role} · ${profile.focus}`}</p>
+      <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink/90 sm:text-xl">{profile.tagline}</p>
+      <div className="mt-5"><Status /></div>
+      <div className="mt-9"><Buttons onResume={onResume} center /></div>
+    </div>
+  );
+}
+
+/** Full game UI: everything inside one player card */
+function Card({ onResume }) {
+  return (
+    <div className="py-10 lg:py-16">
+      <div className="panel p-6 sm:p-8">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+          <Portrait className="h-28 w-28 shrink-0" />
+          <div className="min-w-0">
+            <h1 className="font-pixel text-4xl leading-none text-ink sm:text-6xl">{profile.name}</h1>
+            <p className="mt-3 text-lg font-medium text-ember">{profile.role}</p>
+            <p className="mt-1 font-mono text-xs text-mute">{profile.focus}</p>
+          </div>
+        </div>
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink/90 sm:text-lg">{profile.tagline}</p>
+        <p className="mt-4 font-mono text-xs text-mute">{profile.school} · {profile.location}</p>
+        <div className="mt-3"><Status /></div>
+        <div className="mt-8"><Buttons onResume={onResume} /></div>
+      </div>
+    </div>
+  );
+}
+
+const VARIANTS = { split: Split, minimal: Minimal, card: Card };
+
+export default function Hero({ onResume, ready, variant = "split" }) {
+  const Layout = VARIANTS[variant] || Split;
+  return (
+    <section id="top" className="pb-16">
+      <Layout onResume={onResume} ready={ready} />
+      <HudStrip />
     </section>
   );
 }

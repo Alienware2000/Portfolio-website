@@ -2,106 +2,139 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles with refined color scheme */
 @layer base {
   html {
     scroll-behavior: smooth;
-        /* Prevent layout shift when scrollbar appears/disappears */
-        scrollbar-gutter: stable both-edges;
+    scroll-padding-top: 5rem;
   }
-
+  :root {
+    /* Read by the particle canvas */
+    --particle-node: 169, 185, 214;
+    --particle-link: 126, 143, 170;
+    --bg-page: 10, 10, 12;
+    /* Design Lab knobs: overridden by data attributes on <html> */
+    --ember: 255 122 61;
+    --font-display: "Pixelify Sans", ui-monospace, monospace;
+  }
   body {
-    /* Page background color comes from CSS variables to match particle canvas */
-    background-color: rgb(var(--bg-page));
-    color: rgb(var(--text-page));
-    /* Smooth theme transitions */
-    transition: background-color 0.5s ease-out,
-                color 0.5s ease-out;
-    font-feature-settings: "kern" 1, "liga" 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    /* Transparent so the fixed particle canvas shows through */
+    @apply text-ink font-sans antialiased;
+    background: transparent;
   }
-
-  /* Minimal typography - zen-like spacing */
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-medium tracking-tight;
-    letter-spacing: -0.02em;
+  ::selection {
+    background: rgb(var(--ember));
+    color: #0a0a0c;
   }
-
-  p {
-    letter-spacing: -0.01em;
-    max-width: 65ch; /* ~60-70 characters */
-    line-height: 1.75;
+  :focus-visible {
+    outline: 2px solid #ffd166;
+    outline-offset: 2px;
   }
-
-  /* Base transitions - only essential properties */
-      /* Limit global transitions to avoid mobile repaint flicker */
-      * {
-        transition-property: background-color, color, border-color;
-        transition-timing-function: ease-out;
-        transition-duration: 0.15s;
-      }
 }
 
-/* Particle color variables (light/dark) taken from user's reference image */
-:root {
-  --particle-node: 60, 74, 98;      /* light node rgb */
-  --particle-link: 116, 134, 166;   /* light link rgb */
-  --bg-page: 247, 247, 251;         /* light background */
-  --text-page: 17, 24, 39;          /* slate-900-ish */
-}
-
-.dark {
-  --particle-node: 169, 185, 214;   /* dark node rgb */
-  --particle-link: 126, 143, 170;   /* dark link rgb */
-  --bg-page: 15, 14, 20;            /* deep charcoal-purple */
-  --text-page: 243, 244, 246;       /* slate-100-ish */
-}
-
-/* Reusable components/utilities */
 @layer components {
-  /* Subtle surface panel for dark backgrounds */
-  .surface-panel {
-    @apply rounded-xl border border-white/10 bg-white/5 p-6 sm:p-8;
+  /* Notched "pixel" panel: the core surface of the whole UI */
+  /* Default surface is quiet: thin border, no shadow. The pixel offset only
+     appears on hover, so the game feel comes from interaction, not clutter. */
+  .panel {
+    @apply bg-panel/80 border border-line;
   }
-
-  /* Higher-contrast link on dark, with underline on hover */
-  .link-contrast {
-    @apply text-slate-300 hover:text-slate-100 hover:underline underline-offset-2;
+  .panel-hover {
+    transition: transform 0.12s steps(3), box-shadow 0.12s steps(3), border-color 0.12s;
+  }
+  .panel-hover:hover {
+    @apply border-ember;
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 0 rgb(var(--ember) / 0.35);
+  }
+  .label {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em] text-mute;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 border-2 border-line bg-raised px-4 py-2 font-mono text-xs uppercase tracking-widest text-ink;
+    box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.55);
+    transition: transform 0.08s, box-shadow 0.08s, border-color 0.12s;
+  }
+  .btn:hover {
+    @apply border-ember;
+  }
+  .btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.55);
+  }
+  .btn-primary {
+    @apply border-ember bg-ember text-night font-medium;
+  }
+  .btn-primary:hover {
+    @apply border-gold bg-gold;
+  }
+  .chip {
+    @apply inline-block border border-line bg-night/60 px-2 py-0.5 font-mono text-[11px] text-mute;
   }
 }
 
-/* Custom animations */
 @keyframes blink {
-  0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
-
-/* Custom animations */
-.animate-blink {
-  animation: blink 1s step-end infinite;
+.blink {
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes intro-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes intro-load {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes toast-in {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.toast {
+  animation: toast-in 0.2s steps(4) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .blink, .toast { animation: none; }
+  .panel-hover:hover { transform: none; }
 }
 
-/* Smooth scroll */
-html:focus-within {
-  scroll-behavior: smooth;
+/* ---------- Design Lab variants (set as data attributes on <html>) ---------- */
+[data-accent="cyan"] { --ember: 94 214 255; }
+[data-accent="lime"] { --ember: 163 230 53; }
+[data-accent="violet"] { --ember: 167 139 250; }
+[data-accent="gold"] { --ember: 255 209 102; }
+
+[data-heading="sans"] { --font-display: Inter, system-ui, sans-serif; }
+[data-heading="sans"] .font-pixel { letter-spacing: -0.03em; font-weight: 600; }
+[data-heading="mono"] { --font-display: "JetBrains Mono", ui-monospace, monospace; }
+[data-heading="mono"] .font-pixel { letter-spacing: -0.04em; }
+
+[data-panel="soft"] .panel { border-width: 1px; border-radius: 16px; box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.8); }
+[data-panel="soft"] .btn { border-width: 1px; border-radius: 999px; box-shadow: none; }
+[data-panel="soft"] .chip { border-radius: 999px; }
+[data-panel="soft"] .panel-hover:hover { transform: translateY(-3px); box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.9); }
+[data-panel="pixel"] .panel { border-width: 2px; box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.55); }
+[data-panel="pixel"] .panel-hover:hover { box-shadow: 6px 6px 0 0 rgba(0, 0, 0, 0.55); }
+
+.bg-grid {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -40;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgb(var(--ember) / 0.1), transparent),
+    linear-gradient(rgba(60, 60, 78, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(60, 60, 78, 0.22) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
+}
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0) 0 2px, rgba(0, 0, 0, 0.1) 2px 3px);
 }
 
-/* Refined scrollbar - subtle and minimal */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-slate-300/50 dark:bg-slate-700/50 rounded-full;
-  transition: background-color 0.3s ease;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400/60 dark:bg-slate-600/60;
-}
-
+/* The pixel font's "ffi" ligature is hard to read ("Office"), so turn ligatures off */
+.font-pixel { font-variant-ligatures: none; }

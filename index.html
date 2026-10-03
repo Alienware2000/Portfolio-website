@@ -1,58 +1,34 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="David Antwi's portfolio" />
-    <title>David Antwi</title>
-    <!-- Primary SEO -->
-    <meta name="title" content="David Antwi — Portfolio" />
-    <meta name="description" content="I build ML‑powered tools, embedded systems, and TinyML applications." />
+    <title>David Antwi | Software Engineer</title>
+    <meta name="description" content="David Antwi: Yale EECS student and software engineer building AI agents, full-stack products, and rover autonomy." />
     <link rel="canonical" href="https://davidantwi.vercel.app/" />
-    <meta name="theme-color" content="#0a0a0a" />
-
-    <!-- Open Graph / Facebook -->
+    <meta name="theme-color" content="#0a0a0c" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://davidantwi.vercel.app/" />
-    <meta property="og:title" content="David Antwi — Portfolio" />
-    <meta property="og:description" content="I build ML‑powered tools, embedded systems, and TinyML applications." />
-    <!-- Optional image: add later
-    <meta property="og:image" content="https://davidantwi.vercel.app/og-image.png" />
-    -->
+    <meta property="og:title" content="David Antwi | Software Engineer" />
+    <meta property="og:description" content="Yale EECS student and software engineer building AI agents, full-stack products, and rover autonomy." />
     <meta property="og:site_name" content="David Antwi" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="David Antwi — Portfolio" />
-    <meta name="twitter:description" content="I build ML‑powered tools, embedded systems, and TinyML applications." />
-    <!-- Optional image: add later
-    <meta name="twitter:image" content="https://davidantwi.vercel.app/og-image.png" />
-    -->
+    <meta name="twitter:card" content="summary" />
+    <link rel="alternate" type="text/markdown" href="/resume.md" title="Full profile (Markdown)" />
+    <link rel="alternate" type="application/json" href="/resume.json" title="Full profile (JSON Resume)" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Pixelify+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
     <style>
-      /* Paint the correct theme BEFORE JS/CSS load to avoid flash */
-      /* Light default (we'll override to dark via class on <html>) */
-      body { background:#f9fafb; color:#111827; }
-
-      /* If <html> has .dark (your default), paint dark immediately */
-      html.dark { color-scheme: dark; }
-      html.dark body { background:#0a0a0a; color:#f3f4f6; }
+      html { background: #0a0a0c; color-scheme: dark; }
+      /* Plain-HTML copy of the profile for agents and no-JS readers. Kept off
+         screen until React mounts so there is no unstyled flash. */
+      #static-profile { position: absolute; left: -9999px; }
     </style>
-
-
-    <!-- Run first: force dark class on <html> (always dark by default) -->
-    <script>
-      (function () {
-        document.documentElement.classList.add("dark");
-      })();
-    </script>
-
-    <!-- Then load your app -->
+    <noscript><style>#static-profile { position: static; max-width: 48rem; margin: 2rem auto; padding: 0 1rem; color: #f1f3f7; font-family: system-ui, sans-serif; line-height: 1.6; } #static-profile a { color: #ff7a3d; }</style></noscript>
     <script type="module" src="/src/main.jsx"></script>
-
   </head>
-
-  <body class="bg-gray-50 text-gray-900 dark:bg-neutral-900 dark:text-gray-100">
+  <body>
     <div id="root"></div>
   </body>
 </html>

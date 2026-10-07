@@ -21,12 +21,12 @@ export const profile = {
 export const stats = [
   { value: "16,000+", label: "partners on a platform I built" },
   { value: "30+", label: "countries using it" },
-  { value: "1,500+", label: "applications through my registration system" },
+  { value: "1,900+", label: "delegates on my conference registration platform" },
   { value: "3", label: "hackathon wins in 2026" },
 ];
 
 export const now = [
-  "Software Engineer at BENMP",
+  "Software Engineer at BENMP (part-time)",
   "Autonomy Lead, Yale Mars Rover Team",
   "Project Director, Yale AI Association",
 ];
@@ -35,7 +35,7 @@ export const experience = [
   {
     org: "BENMP",
     role: "Software Engineer, Tech Team (AI and Full-Stack)",
-    context: "International nonprofit, 30+ countries",
+    context: "Part-time · International nonprofit, 30+ countries",
     start: "Jul 2026",
     end: "Present",
     active: true,
@@ -110,7 +110,7 @@ export const leadership = [
     role: "Lead Developer · Committee Chair",
     dates: "Nov 2025 → Now",
     active: true,
-    text: "Rebuilt the conference site and registration platform (1,500+ applications), and chaired a 30-delegate committee at the Accra conference.",
+    text: "Rebuilt the conference site and built the registration platform (1,900+ delegates for YMAU VI), and chaired a 30-delegate committee at the Accra conference.",
   },
   {
     org: "Yale Africa Innovation Symposium",
@@ -236,7 +236,7 @@ export const projects = [
     title: "YMAU Registration and Review Desk",
     category: "product",
     description:
-      "Conference site, Stripe registration, and a blind-review desk for delegate applications and financial aid. 1,500+ applications so far.",
+      "Conference site, Stripe registration, and a blind-review desk for delegate applications and financial aid. Nearly 2,000 delegates signed up for YMAU VI so far.",
     tags: ["Next.js", "Stripe", "PostgreSQL"],
     live: "https://www.yalemodelau.org",
     preview: true,

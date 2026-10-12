@@ -57,7 +57,7 @@ export const experience = [
       "Designed and shipped Beakr Interviews, an AI system that finds gaps in a lab's knowledge base, interviews the right researcher by text or voice, and turns their answers into cited wiki entries.",
       "Led the computer-use desktop agent: rebuilt search over 80K+ files, made every answer cite its source file, and got it running reliably on Windows by fixing 35 release-blocking defects (Rust).",
       "Extended the desktop agent to launch and supervise coding agents (Claude Code, Codex) on the user's computer, with explicit approval before each run and a full audit log.",
-      "Built five evaluation datasets on agent reliability, memory, and tool use, published to Hugging Face.",
+      "Built the agent's write access to 19 external services, with scoped permissions and user confirmation before every action.",
     ],
     stack: ["Rust", "TypeScript", "Python", "Agents", "Evals"],
   },

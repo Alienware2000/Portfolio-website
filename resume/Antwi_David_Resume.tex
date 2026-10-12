@@ -1,0 +1,173 @@
+%-------------------------
+% David Antwi resume (Jake Gutierrez template)
+% Build: tectonic Antwi_David_Resume.tex  (or paste into Overleaf)
+% Then copy the PDF to ../public/ and regenerate ../public/resume.png
+%-------------------------
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+% Clean copy-paste and ATS text extraction: glyph mapping under pdfTeX (Overleaf),
+% OpenType Latin Modern under XeTeX (tectonic). Both render the same.
+\ifdefined\XeTeXversion
+  \usepackage{fontspec}
+\else
+  \input{glyphtounicode}
+\fi
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\ifdefined\pdfgentounicode\pdfgentounicode=1\fi
+
+\newcommand{\resumeItem}[1]{\item\small{{#1 \vspace{-2pt}}}}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Huge \scshape David Antwi} \\ \vspace{1pt}
+    \small \href{mailto:david.antwi@yale.edu}{\underline{david.antwi@yale.edu}} $|$
+    \href{https://davidantwi.vercel.app/}{\underline{Personal Website}} $|$
+    \href{https://www.linkedin.com/in/david-antwi-b17727205/}{\underline{LinkedIn}} $|$
+    \href{https://github.com/Alienware2000}{\underline{github.com/Alienware2000}}
+\end{center}
+
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Yale University}{New Haven, CT}
+      {B.S. Electrical Engineering and Computer Science}{Expected May 2028}
+      \resumeItemListStart
+        \resumeItem{\textbf{Coursework:} Data Structures, Systems Programming, Software Engineering, Full-Stack Web, Intro to Machine Learning, Intro to AI, HCI, Linear Algebra, Discrete Math}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {BENMP}{Jul 2026 -- Present}
+      {Software Engineer, Tech Team (AI and Full-Stack)}{International nonprofit, 30+ countries}
+      \resumeItemListStart
+        \resumeItem{Built and launched the organization's partner management platform, now holding 16,000+ partners across 30+ countries and used by admins at 97 regional hubs.}
+        \resumeItem{Built payment reconciliation for bank and mobile money, plus guardrailed, provider-agnostic WhatsApp automation.}
+        \resumeItem{Built a grounded, read-only AI assistant over partner data: code computes every figure, the model only explains it.}
+        \resumeItem{Migrated 26,000+ records with zero loss and scaled from 1 to 30+ countries in a month via a data-driven region model.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Beakr, Inc. (Stealth Startup)}{May 2026 -- Aug 2026}
+      {Software Engineering Intern, AI memory platform for life sciences research}{New York, NY}
+      \resumeItemListStart
+        \resumeItem{Designed and shipped Beakr Interviews, an AI system that finds gaps in a lab's knowledge base, interviews the right researcher by text or voice, and turns their answers into cited wiki entries.}
+        \resumeItem{Led the computer-use desktop agent: rebuilt search over 80K+ files, made every answer cite its source file, and got it running reliably on Windows by fixing 35 release-blocking defects (Rust).}
+        \resumeItem{Extended the desktop agent to launch and supervise coding agents (Claude Code, Codex) on the user's computer, with explicit approval before each run and a full audit log.}
+        \resumeItem{Built the agent's write access to 19 external services, with scoped permissions and user confirmation before every action.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {SynovAI}{Oct 2025 -- May 2026}
+      {Software Engineering Intern, AI retrosynthesis startup}{New Haven, CT}
+      \resumeItemListStart
+        \resumeItem{Designed and built a vendor-aware stock filtering feature that shows researchers only routes whose starting materials are purchasable, across 5 vendor catalogs of 2.5M+ compounds.}
+        \resumeItem{Built a chemical-safety layer that pulls GHS hazard data from PubChem and flags hazards on each molecule in a route.}
+        \resumeItem{Built a self-serve fine-tuning pipeline (PyTorch, QLoRA) covering validation, training, and automated evaluation.}
+        \resumeItem{Led a UI/UX overhaul of the researcher platform (React, Next.js), redesigning the settings and results views.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Yale Model African Union}{Nov 2025 -- Present}
+      {Lead Developer}{New Haven, CT}
+      \resumeItemListStart
+        \resumeItem{Replaced the Squarespace site with a custom Next.js rebuild of yalemodelau.org, plus a registration platform with Stripe payments that now holds 3,000+ delegates.}
+        \resumeItem{Built the board's review desk for delegate applications and financial aid, with blind review and role-based access.}
+        \resumeItem{Built the previous conference's delegate training platform, serving 335+ users.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+\section{Projects}
+    % \kern0pt in "Office" stops the ff ligature, which some resume parsers misread
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{Better Of\kern0ptfice Hours} $|$ \emph{1st Place, YaleAI x SpaceXAI Cursor Build Challenge}}{2026}
+          \resumeItemListStart
+            \resumeItem{Built a real-time multimodal voice agent tutor that talks students through concepts and problems while drawing diagrams and equations on a live whiteboard or highlighting their uploaded notes.}
+            \resumeItem{Built a custom SVG whiteboard engine with local LaTeX rendering and keyframe animations timed to the agent's speech.}
+            \resumeItem{Built the voice loop: on-device speech detection, ElevenLabs transcription and speech, and interruption-safe turn-taking.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Intentionality} $|$ \emph{AI-Powered Gamified Productivity Platform}}{2026}
+          \resumeItemListStart
+            \resumeItem{Launched a gamified productivity app with streaks and friend accountability, used by 300+ people.}
+            \resumeItem{Built an AI planner grounded in users' calendars and coursework, with failover across two LLMs.}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Python, Java, JavaScript/TypeScript, C++, C, Rust} \\
+     \textbf{Frameworks \& Libraries}{: React, Next.js, React Native, FastAPI, Flask, Spring Boot, PyTorch, Anthropic SDK} \\
+     \textbf{Tools}{: PostgreSQL, Supabase, Redis, Docker, Git, CI/CD, Linux, Hugging Face, Claude Code, Cursor}
+    }}
+ \end{itemize}
+
+\section{Honors}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Ramp Builders Cup (2026):} Best Use of Cursor for TicketDodge, which predicts parking ticket odds across New York. \\
+     \textbf{Google x Yale SOM Build with AI Hackathon (2026):} 2nd place for Ocura, glasses for the visually impaired. \\
+     \textbf{Prometheus X Catapult Fellow:} \$5,000 grant. \quad \textbf{YC Startup School 2026:} selected from 30,000+ applicants.
+    }}
+ \end{itemize}
+
+\end{document}

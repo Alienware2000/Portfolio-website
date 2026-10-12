@@ -7,3 +7,5 @@ npm-debug.log*
 yarn-*.log*
 pnpm-*.log*
 .claude
+resume/*.pdf
+resume/*.log

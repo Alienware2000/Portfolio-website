@@ -28,6 +28,7 @@ export const stats = [
 export const now = [
   "Software Engineer at BENMP (part-time)",
   "Autonomy Lead, Yale Mars Rover Team",
+  "Drone swarm researcher, O'Hern Lab",
   "Project Director, Yale AI Association",
 ];
 
@@ -35,17 +36,44 @@ export const experience = [
   {
     org: "BENMP",
     role: "Software Engineer, Tech Team (AI and Full-Stack)",
-    context: "Part-time · International nonprofit, 30+ countries",
+    context: "Part-time · International organization, 30+ countries",
     start: "Jul 2026",
     end: "Present",
     active: true,
     bullets: [
-      "Built and launched the organization's partner management platform, now holding 16,000+ partners across 30+ countries and used by admins at 97 regional hubs.",
-      "Built payment reconciliation for bank and mobile money, plus guardrailed, provider-agnostic WhatsApp automation.",
+      "Built and launched the organization's partner management platform, now holding 16,000+ partners across 30+ countries and used by admins at 100 regional hubs (TypeScript, Next.js, Supabase).",
+      "Built mobile money payment reconciliation, plus guardrailed, provider-agnostic WhatsApp automation.",
       "Built a grounded, read-only AI assistant over partner data: code computes every figure, the model only explains it.",
-      "Migrated 26,000+ records with zero loss and scaled from 1 to 30+ countries in a month via a data-driven region model.",
+      "Archived 26,000+ legacy records with zero loss, then took the hub platform from Ghana to 30+ countries in a month.",
     ],
     stack: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Twilio"],
+  },
+  {
+    org: "Yale Mars Rover Team",
+    role: "Autonomy Lead",
+    context: "University Rover Challenge 2027 · Yale Undergraduate Robotics",
+    start: "Sep 2026",
+    end: "Present",
+    active: true,
+    bullets: [
+      "Built the ROS 2 mission state machine for both autonomy missions, with command guards, cancellation, timeouts, and stale-result rejection, in a package with 91 tests (Python).",
+      "Integrated missions with Nav2 navigation and the team's fused localization in Gazebo, and fixed a GPS initialization race that could corrupt position estimates.",
+      "Set up ARM64 and x86-64 Docker environments and GitHub Actions build and test pipelines for the team.",
+    ],
+    stack: ["ROS 2", "Python", "Nav2", "Gazebo", "Docker", "GitHub Actions"],
+  },
+  {
+    org: "O'Hern Lab, Yale Mechanical Engineering",
+    role: "Undergraduate Researcher",
+    context: "Industry-sponsored drone swarm project · New Haven, CT",
+    start: "Sep 2026",
+    end: "Present",
+    active: true,
+    bullets: [
+      "Own sim-to-real transfer for a 4-drone Crazyflie swarm trained with reinforcement learning in simulation, so policies behave the same on real drones.",
+      "Wrote the team's literature review of 30+ papers on sim-to-real methods for quadrotors and swarms, comparing simulators and transfer approaches for our hardware.",
+    ],
+    stack: ["Python", "ROS 2", "Crazyswarm2", "Reinforcement learning"],
   },
   {
     org: "Beakr, Inc. (Stealth Startup)",
@@ -54,12 +82,12 @@ export const experience = [
     start: "May 2026",
     end: "Aug 2026",
     bullets: [
-      "Designed and shipped Beakr Interviews, an AI system that finds gaps in a lab's knowledge base, interviews the right researcher by text or voice, and turns their answers into cited wiki entries.",
+      "Designed and shipped Beakr Interviews, an AI system that finds gaps in a lab's knowledge base, interviews the right researcher by text or voice, and turns answers into cited wiki entries (Python, Postgres, Redis Streams, per-organization feature flags).",
       "Led the computer-use desktop agent: rebuilt search over 80K+ files, made every answer cite its source file, and got it running reliably on Windows by fixing 35 release-blocking defects (Rust).",
       "Extended the desktop agent to launch and supervise coding agents (Claude Code, Codex) on the user's computer, with explicit approval before each run and a full audit log.",
       "Built the agent's write access to 19 external services, with scoped permissions and user confirmation before every action.",
     ],
-    stack: ["Rust", "TypeScript", "Python", "Agents", "Evals"],
+    stack: ["Rust", "Python", "Postgres", "Redis Streams", "Agents"],
   },
   {
     org: "SynovAI",
@@ -90,14 +118,6 @@ export const experience = [
 ];
 
 export const leadership = [
-  {
-    org: "Yale Mars Rover Team",
-    sub: "Yale Undergraduate Robotics",
-    role: "Autonomy Lead",
-    dates: "Aug 2026 → Now",
-    active: true,
-    text: "Lead the autonomy team for Yale's University Rover Challenge rover, building navigation, mission logic, and replay tooling in ROS 2.",
-  },
   {
     org: "Yale AI Association",
     role: "Project Director",
@@ -198,8 +218,8 @@ export const projects = [
     description:
       "The autonomy stack for Yale's Mars rover: navigation, a mission coordinator, and the tooling to see what the robot was thinking after every run.",
     highlights: [
-      "Table-driven mission state machine with package tests covering its transitions.",
-      "Gazebo and Nav2 simulation with Foxglove layouts and MCAP record and replay.",
+      "Mission state machine for both autonomy missions with guards, cancellation, timeouts, and 91 tests.",
+      "Nav2 navigation on fused localization in Gazebo, with Foxglove record and replay to debug every run.",
     ],
     tags: ["ROS 2", "Nav2", "Python", "Gazebo", "Foxglove"],
   },

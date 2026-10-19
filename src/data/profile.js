@@ -21,7 +21,7 @@ export const profile = {
 export const stats = [
   { value: "16,000+", label: "partners on a platform I built" },
   { value: "30+", label: "countries using it" },
-  { value: "3,300+", label: "delegates on my conference registration platform" },
+  { value: "3,600+", label: "delegates on my conference registration platform" },
   { value: "3", label: "hackathon wins in 2026" },
 ];
 
@@ -130,7 +130,7 @@ export const leadership = [
     role: "Lead Developer · Committee Chair",
     dates: "Nov 2025 → Now",
     active: true,
-    text: "Rebuilt the conference site and built the registration platform (3,300+ delegates and 96 delegations for YMAU VI), and chaired a 30-delegate committee at the Accra conference.",
+    text: "Rebuilt the conference site and built the registration platform (3,600+ delegates and 105 delegations for YMAU VI), and chaired a 30-delegate committee at the Accra conference.",
   },
   {
     org: "Yale Africa Innovation Symposium",
@@ -256,7 +256,7 @@ export const projects = [
     title: "YMAU Registration and Review Desk",
     category: "product",
     description:
-      "Conference site, Stripe registration, and a blind-review desk for delegate applications and financial aid. 3,300+ delegates and 96 delegations signed up for YMAU VI so far.",
+      "Conference site, Stripe registration, and a blind-review desk for delegate applications and financial aid. 3,600+ delegates and 105 delegations signed up for YMAU VI so far.",
     tags: ["Next.js", "Stripe", "PostgreSQL"],
     live: "https://www.yalemodelau.org",
     preview: true,

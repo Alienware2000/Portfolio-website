@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ExternalLink, X } from "lucide-react";
+import { setOverlay } from "../lib/overlay.js";
 
 /** Runs a project's live site inside the portfolio, loaded only when opened. */
 export default function PreviewModal({ project, onClose }) {
@@ -9,9 +10,11 @@ export default function PreviewModal({ project, onClose }) {
     const onKey = (e) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    setOverlay(true);
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      setOverlay(false);
     };
   }, [onClose]);
 

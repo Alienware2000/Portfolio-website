@@ -1,21 +1,27 @@
 import { skills, education, about } from "../data/profile.js";
 import SectionHeading from "./SectionHeading.jsx";
 
+/** Who I am first, then the short facts: education and the tools I use */
 export default function Skills() {
   return (
     <section id="skills" className="py-16">
-      <SectionHeading index="05" title="Skills & Education" />
-      <div className="grid gap-6 lg:grid-cols-3">
-        {skills.map((group) => (
-          <div key={group.title} className="panel p-6">
-            <p className="label mb-4">{group.title}</p>
-            <ul className="flex flex-wrap gap-2">
-              {group.items.map((s) => (
-                <li key={s} className="border border-line bg-night/60 px-2.5 py-1 text-sm text-ink/90">{s}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <SectionHeading id="skills" title="About" />
+      <div className="panel p-6 sm:p-7">
+        <img
+          src="/images/portrait-192.jpg"
+          srcSet="/images/portrait-192.jpg 192w, /images/portrait-384.jpg 384w"
+          sizes="96px"
+          alt="David Antwi"
+          width="192"
+          height="192"
+          loading="lazy"
+          className="float-right mb-2 ml-5 h-24 w-24 border-2 border-ember object-cover"
+        />
+        <div className="max-w-[68ch] space-y-3 text-[15px] leading-relaxed text-ink/85">
+          {about.map((p) => (
+            <p key={p}>{p}</p>
+          ))}
+        </div>
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
@@ -33,16 +39,21 @@ export default function Skills() {
               </li>
             ))}
           </ul>
-          <p className="mt-5 font-mono text-xs text-mute">Spoken: English (native), French (working)</p>
         </div>
         <div className="panel p-6">
-          <p className="label mb-4">About</p>
-          <img src="/images/image.png" alt="David Antwi" width="96" height="96" className="float-right mb-2 ml-4 h-24 w-24 border-2 border-ember object-cover" />
-          <div className="space-y-3 text-[15px] leading-relaxed text-ink/85">
-            {about.map((p) => (
-              <p key={p}>{p}</p>
+          <p className="label mb-4">Skills</p>
+          <dl className="space-y-3 text-sm leading-relaxed">
+            {skills.map((group) => (
+              <div key={group.title}>
+                <dt className="font-mono text-xs uppercase tracking-widest text-mute">{group.title}</dt>
+                <dd className="mt-1 text-ink/90">{group.items.join(" · ")}</dd>
+              </div>
             ))}
-          </div>
+            <div>
+              <dt className="font-mono text-xs uppercase tracking-widest text-mute">Spoken</dt>
+              <dd className="mt-1 text-ink/90">English (native) · French (working)</dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>

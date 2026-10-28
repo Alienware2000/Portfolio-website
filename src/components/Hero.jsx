@@ -11,7 +11,7 @@ const LINKS = [
 function Buttons({ onResume, center }) {
   return (
     <div className={`flex flex-wrap items-center gap-3 ${center ? "justify-center" : ""}`}>
-      <a href="#experience" className="btn btn-primary">
+      <a href="#work" className="btn btn-primary">
         View my work <ChevronDown size={14} aria-hidden="true" />
       </a>
       <a href={profile.resume} onClick={onResume} className="btn">
@@ -19,11 +19,11 @@ function Buttons({ onResume, center }) {
       </a>
       <span className="flex gap-1">
         {LINKS.map((l) => (
-          <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer" aria-label={l.label} title={l.label} className="p-2.5 text-mute transition-colors hover:text-ember">
+          <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer" aria-label={l.label} title={l.label} className="grid h-11 w-11 place-items-center text-mute transition-colors hover:text-ember">
             <l.Icon size={18} aria-hidden="true" />
           </a>
         ))}
-        <a href={`mailto:${profile.email}`} aria-label="Email" title="Email" className="p-2.5 text-mute transition-colors hover:text-ember">
+        <a href={`mailto:${profile.email}`} aria-label="Email" title="Email" className="grid h-11 w-11 place-items-center text-mute transition-colors hover:text-ember">
           <Mail size={18} aria-hidden="true" />
         </a>
       </span>
@@ -41,7 +41,18 @@ function Status() {
 }
 
 function Portrait({ className = "" }) {
-  return <img src="/images/image.png" alt="David Antwi" width="400" height="400" className={`border-2 border-ember object-cover ${className}`} />;
+  return (
+    <img
+      src="/images/portrait-192.jpg"
+      srcSet="/images/portrait-192.jpg 192w, /images/portrait-384.jpg 384w"
+      sizes="96px"
+      alt="David Antwi"
+      width="192"
+      height="192"
+      fetchPriority="high"
+      className={`border-2 border-ember object-cover ${className}`}
+    />
+  );
 }
 
 /** The numbers a recruiter is scanning for, plus what I'm doing right now */
@@ -51,7 +62,7 @@ function HudStrip() {
       <ul className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-4">
         {stats.map((s) => (
           <li key={s.label}>
-            <p className="font-mono text-2xl font-medium text-gold sm:text-3xl">{s.value}</p>
+            <p className="stat-value font-mono text-3xl font-semibold sm:text-4xl">{s.value}</p>
             <p className="mt-1 text-sm text-mute">{s.label}</p>
           </li>
         ))}

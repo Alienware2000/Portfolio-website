@@ -7,7 +7,7 @@ export default function Awards() {
   const others = achievements.filter((a) => a.tier !== "gold");
   return (
     <section id="awards" className="py-16">
-      <SectionHeading index="04" title="Awards" />
+      <SectionHeading id="awards" title="Awards" />
       <ul className="grid gap-4 sm:grid-cols-2">
         {wins.map((a) => (
           <li key={a.title + a.event} className="panel flex items-center gap-4 p-4">

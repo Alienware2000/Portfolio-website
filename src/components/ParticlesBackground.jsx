@@ -3,7 +3,8 @@
  * Canvas-based particle network with cursor interaction.
  * - Balanced profile: desktop ~120 particles, mobile ~60
  * - Lines connect within a distance threshold; brightness increases near cursor
- * - DPR-aware, pauses when tab hidden, respects prefers-reduced-motion
+ * - DPR-aware; exactly one animation loop, paused when the tab is hidden, the hero is far
+ *   off screen, or an overlay (case study, resume) is open; static under prefers-reduced-motion
  * - Colors come from CSS variables for dark/light themes
  */
 import { useEffect, useRef } from "react";
@@ -79,7 +80,7 @@ export default function ParticlesBackground() {
         canvas.style.height = `${state.height}px`;
         ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
         initParticles();
-        draw(0); // draw once on resize
+        render(0); // draw once at the new size; never starts a loop of its own
         // Update interaction listeners based on current mode
         updateInteractionListeners();
       }, 200); // 200ms debounce - prevents resize during scroll bounce
@@ -231,9 +232,21 @@ export default function ParticlesBackground() {
       p.vy *= 0.998;
     };
 
-    const draw = (ts) => {
-      if (pausedRef.current) return;
-      
+    // Draws one frame; integrates motion only when dt > 0
+    const render = (dt) => {
+      ctx.clearRect(0, 0, state.width, state.height);
+      const parts = particlesRef.current;
+      const linkDist2 = state.linkDist * state.linkDist;
+      if (!prefersReduced && dt > 0) {
+        for (let i = 0; i < parts.length; i++) integrate(parts[i], dt);
+      }
+      drawLinksAndNodes(parts, linkDist2);
+    };
+
+    const loop = (ts) => {
+      rafRef.current = 0;
+      if (!shouldRun()) return;
+
       // Much stricter dt clamping to prevent scroll glitches
       const targetFPS = 60;
       const targetDt = 1000 / targetFPS;
@@ -252,16 +265,31 @@ export default function ParticlesBackground() {
       }
       
       lastTsRef.current = ts;
-      ctx.clearRect(0, 0, state.width, state.height);
+      render(dt);
+      rafRef.current = requestAnimationFrame(loop);
+    };
 
-      const parts = particlesRef.current;
-      const linkDist2 = state.linkDist * state.linkDist;
+    // Motion is only worth paying for while someone can see it
+    const shouldRun = () =>
+      !prefersReduced &&
+      !document.hidden &&
+      !pausedRef.current &&
+      document.documentElement.dataset.overlay !== "open" &&
+      window.scrollY < window.innerHeight * 1.5;
 
-      // Integrate positions
-      if (!prefersReduced) {
-        for (let i = 0; i < parts.length; i++) integrate(parts[i], dt);
-      }
+    // Guarded so resize, pageshow, scroll, and overlay events can never stack loops
+    const start = () => {
+      if (rafRef.current || !shouldRun()) return;
+      lastTsRef.current = 0;
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    const stop = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = 0;
+    };
+    const sync = () => (shouldRun() ? start() : stop());
 
+    const drawLinksAndNodes = (parts, linkDist2) => {
       // Draw links
       for (let i = 0; i < parts.length; i++) {
         const p = parts[i];
@@ -306,8 +334,6 @@ export default function ParticlesBackground() {
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
       }
-
-      rafRef.current = requestAnimationFrame(draw);
     };
 
     const handleMouse = (e) => {
@@ -327,18 +353,9 @@ export default function ParticlesBackground() {
         mouseRef.current.active = true;
       }
     };
-    const handleVisibility = () => {
-      if (document.hidden) {
-        pausedRef.current = true;
-        if (rafRef.current) {
-          cancelAnimationFrame(rafRef.current);
-          rafRef.current = 0;
-        }
-      } else {
-        pausedRef.current = false;
-        lastTsRef.current = 0;
-        rafRef.current = requestAnimationFrame(draw);
-      }
+    const handleVisibility = (e) => {
+      pausedRef.current = e?.type === "pagehide";
+      sync();
     };
 
     const addInteractionListeners = () => {
@@ -372,16 +389,13 @@ export default function ParticlesBackground() {
     // Handle back/forward cache and lifecycle on Safari/iOS
     window.addEventListener("pageshow", handleVisibility);
     window.addEventListener("pagehide", handleVisibility);
+    window.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("overlaychange", sync);
 
     resize();
     // Attach or detach interaction listeners based on initial mode
     updateInteractionListeners();
-    if (!prefersReduced) {
-      rafRef.current = requestAnimationFrame(draw);
-    } else {
-      // Static render: no motion for reduced motion users
-      draw(0);
-    }
+    start();
 
     return () => {
       if (resizeTimeout) clearTimeout(resizeTimeout);
@@ -390,8 +404,9 @@ export default function ParticlesBackground() {
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("pageshow", handleVisibility);
       window.removeEventListener("pagehide", handleVisibility);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      rafRef.current = 0;
+      window.removeEventListener("scroll", sync);
+      window.removeEventListener("overlaychange", sync);
+      stop();
     };
   }, []);
 

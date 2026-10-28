@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const DURATION = 2000;
+const DURATION = 1300;
 
 /**
  * Entrance overlay: the name on black, then "> Entering digital workspace"
@@ -33,7 +33,7 @@ export default function BootScreen({ onDone, variant = "workspace", force = fals
       return;
     }
     if (phase === "leaving") {
-      const t = setTimeout(() => setPhase("gone"), 450);
+      const t = setTimeout(() => setPhase("gone"), 300);
       return () => clearTimeout(t);
     }
     const leave = () => {
@@ -54,7 +54,7 @@ export default function BootScreen({ onDone, variant = "workspace", force = fals
   return (
     <div
       role="presentation"
-      className={`fixed inset-0 z-[100] grid cursor-pointer place-items-center bg-night transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[100] grid cursor-pointer place-items-center bg-night transition-opacity duration-300 ${
         phase === "leaving" ? "opacity-0" : "opacity-100"
       }`}
     >

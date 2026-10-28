@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { experience } from "../data/profile.js";
+import { navigate } from "../lib/route.js";
 import SectionHeading from "./SectionHeading.jsx";
 
 export default function Experience() {
@@ -7,7 +9,7 @@ export default function Experience() {
   const [open, setOpen] = useState({});
   return (
     <section id="experience" className="py-16">
-      <SectionHeading index="01" title="Experience" />
+      <SectionHeading id="experience" title="Experience" />
       <ol className="space-y-6">
         {experience.map((job) => (
           <li key={job.org} className="panel p-6 sm:p-7">
@@ -24,7 +26,7 @@ export default function Experience() {
                 {job.active && <span className="border border-mint px-2 py-0.5 uppercase tracking-widest text-mint">Current</span>}
               </div>
             </div>
-            <ul className="mt-5 space-y-2.5 text-[15px] leading-relaxed text-ink/90">
+            <ul className="mt-5 max-w-[68ch] space-y-2.5 text-[15px] leading-relaxed text-ink/90">
               {(open[job.org] ? job.bullets : job.bullets.slice(0, 2)).map((b) => (
                 <li key={b} className="flex gap-3">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 bg-ember" aria-hidden="true" />
@@ -36,12 +38,25 @@ export default function Experience() {
               {job.stack.map((t) => (
                 <span key={t} className="chip">{t}</span>
               ))}
+              {job.caseSlug && (
+                <a
+                  href={`/work/${job.caseSlug}`}
+                  onClick={(e) => {
+                    if (e.metaKey || e.ctrlKey) return;
+                    e.preventDefault();
+                    navigate(`/work/${job.caseSlug}`);
+                  }}
+                  className="ml-auto inline-flex min-h-[40px] items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-ember hover:text-gold"
+                >
+                  Case study <ArrowRight size={12} aria-hidden="true" />
+                </a>
+              )}
               {job.bullets.length > 2 && (
                 <button
                   type="button"
                   aria-expanded={!!open[job.org]}
                   onClick={() => setOpen((o) => ({ ...o, [job.org]: !o[job.org] }))}
-                  className="ml-auto font-mono text-xs uppercase tracking-widest text-ember hover:text-gold"
+                  className={`${job.caseSlug ? "" : "ml-auto"} min-h-[40px] font-mono text-xs uppercase tracking-widest text-mute hover:text-ink`}
                 >
                   {open[job.org] ? "Show less" : `+ ${job.bullets.length - 2} more`}
                 </button>

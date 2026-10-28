@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Download, ExternalLink, X } from "lucide-react";
 import { profile } from "../data/profile.js";
+import { setOverlay } from "../lib/overlay.js";
 
 /** Full-screen resume reader: nothing to download, works on phones, Esc closes. */
 export default function ResumeViewer({ onClose }) {
@@ -8,9 +9,11 @@ export default function ResumeViewer({ onClose }) {
     const onKey = (e) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    setOverlay(true);
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      setOverlay(false);
     };
   }, [onClose]);
 

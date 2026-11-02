@@ -200,8 +200,8 @@ export const cases = {
     hardPart:
       "Selling a capped number of places correctly across serverless instances, when one delegate can pay for a whole group and Stripe responses can get lost. Every payment, submission and aid write takes one transaction-scoped Postgres row lock first. A group checkout reserves all its places at once or fails as a whole, and a checkout only expires when Stripe confirms it, never on the app's own clock. I tested it by running the real migration in an in-memory Postgres, with two people racing for the last place and duplicate or out-of-order webhooks.",
     results: [
-      { value: "4,600+", label: "delegates signed up for YMAU VI" },
-      { value: "116", label: "delegations" },
+      { value: "5,000+", label: "delegates signed up for YMAU VI" },
+      { value: "127", label: "delegations" },
       { value: "3", label: "languages on the site" },
     ],
     decisions: [

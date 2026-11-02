@@ -22,7 +22,7 @@ export const profile = {
 
 export const stats = [
   { value: "16,000+", label: "partners in 30+ countries on a platform I co-built" },
-  { value: "4,600+", label: "delegates on a conference registration platform I built" },
+  { value: "5,000+", label: "delegates on a conference registration platform I built" },
   { value: "2", label: "startup software engineering internships" },
   { value: "3", label: "hackathon wins in 2026" },
 ];
@@ -148,7 +148,7 @@ export const leadership = [
     role: "Lead Developer · Committee Chair",
     dates: "Nov 2025 → Now",
     active: true,
-    text: "Rebuilt the conference site and built the registration platform (4,600+ delegates and 116 delegations for YMAU VI), and chaired a 30-delegate committee at the Accra conference.",
+    text: "Rebuilt the conference site and built the registration platform (5,000+ delegates and 127 delegations for YMAU VI), and chaired a 30-delegate committee at the Accra conference.",
   },
   {
     org: "Yale Africa Innovation Symposium",
@@ -301,7 +301,7 @@ export const projects = [
     featured: 7,
     category: "product",
     description:
-      "Conference site, Stripe registration, and a blind-review desk for delegate applications and financial aid. 4,600+ delegates and 116 delegations signed up for YMAU VI so far.",
+      "Conference site, Stripe registration, and a blind-review desk for delegate applications and financial aid. 5,000+ delegates and 127 delegations signed up for YMAU VI so far.",
     tags: ["Next.js", "Stripe", "PostgreSQL"],
     live: "https://www.yalemodelau.org",
     preview: true,
@@ -458,11 +458,11 @@ export const projects = [
 
 // "Building now": what I'm working on right now, one line per project (not a changelog).
 // Update the list and `updated` whenever the work changes; agents read `updated` as "current as of".
-export const updated = "2026-10-27";
+export const updated = "2026-11-02";
 export const building = [
   { tag: "Drone swarm", slug: "drone-swarm", text: "Squads of four drones through obstacle worlds with re-planning, then reinforcement learning in JAX and the first real Crazyflies." },
   { tag: "YAIS", slug: "yais-platform", text: "Getting YAIS V ready to launch: registration, Stripe checkout, QR passes and the staff check-in desk are in private testing." },
-  { tag: "YMAU", slug: "ymau-registration-desk", text: "Running the YMAU VI registration platform as 4,600+ delegates sign up: payments, financial aid review, and keeping the database fast under load." },
+  { tag: "YMAU", slug: "ymau-registration-desk", text: "Running the YMAU VI registration platform as 5,000+ delegates sign up: payments, financial aid review, and keeping the database fast under load." },
   { tag: "Mars Rover", slug: "mars-rover-autonomy", text: "The mission coordinator and simulation tooling for both University Rover Challenge 2027 autonomy missions." },
   { tag: "BENMP", slug: "benmp-partner-platform", text: "Office tools for the partner platform as it grows past 117 hubs, starting with one admin view across every region." },
   { tag: "muSim", org: "Saxena Lab", text: "Generalizing the lab's reinforcement-learning controllers for musculoskeletal models to new bodies, and making the code modular and faster to train." },

@@ -24,7 +24,7 @@ export const stats = [
   { value: "16,000+", label: "partners in 30+ countries on a platform I co-built" },
   { value: "6,000+", label: "delegates on a conference registration platform I built" },
   { value: "2", label: "startup software engineering internships" },
-  { value: "3", label: "hackathon wins in 2026" },
+  { value: "4", label: "hackathon wins in 2026" },
 ];
 
 // The hero shows three; every current role is still in Experience, Leadership, and Building now
@@ -320,6 +320,16 @@ export const projects = [
     tags: ["Python", "JAX", "MuJoCo", "Crazyflie", "Path planning"],
   },
   {
+    title: "Eli",
+    year: 2026,
+    category: "ai",
+    award: "1st place · Yale Computer Society x SpaceX Super Intelligence Grokathon",
+    description:
+      "An agent for Yale campus life, built in under 3 hours. It reads club emails, the events calendar and every dining hall menu, then keeps a live 3D map of campus showing tonight's events, free food, open dining halls and closing deadlines. Every card links back to its source.",
+    tags: ["Next.js", "TypeScript", "Grok", "Agents", "MapLibre"],
+    code: "https://github.com/Alienware2000/Eli",
+  },
+  {
     title: "Ocura",
     year: 2026,
     category: "ai",
@@ -478,6 +488,7 @@ export const categories = [
 
 // tier: gold = competition wins, silver = fellowships and selections
 export const achievements = [
+  { tier: "gold", title: "1st Place", event: "Yale Computer Society x SpaceX Super Intelligence Grokathon", year: "2026", detail: "Eli" },
   { tier: "gold", title: "1st Place", event: "YaleAI x SpaceXAI Cursor Build Challenge", year: "2026", detail: "Better Office Hours" },
   { tier: "gold", title: "Best Use of Cursor", event: "Ramp Builders Cup", year: "2026", detail: "TicketDodge" },
   { tier: "gold", title: "2nd Place", event: "Google x Yale SOM Build with AI Hackathon", year: "2026", detail: "Ocura" },

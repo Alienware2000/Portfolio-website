@@ -164,7 +164,7 @@ export const cases = {
       { value: "40 of 40", label: "runs up a hill from the real competition site, with no map given" },
     ],
     media: [
-      { video: "/videos/rover/cross-yard.mp4", poster: "/videos/rover/cross-yard.jpg", caption: "Crossing the whole yard at 16x speed, with the team's real localization, planner and follower running against simulated sensors." },
+      { video: "/videos/rover/crater-wall.mp4", poster: "/videos/rover/crater-wall.jpg", caption: "The 3D view of a full mission at 10x speed: the rover plans a route (blue) around a crater wall, drives it (yellow) and stops at the goal (green)." },
       { video: "/videos/rover/own-map.mp4", poster: "/videos/rover/own-map.jpg", caption: "No map given: the rover builds one from its own camera as it goes, so it has to look at the terrain before it trusts it." },
       { img: "/videos/rover/planner-map.jpg", alt: "Top-down map of the yard with steep ground shaded red and the planned and driven routes drawn around a crater", caption: "The planner's view: red is ground too steep or rough to drive, blue is the planned route, yellow the drive. Terrain: Marsyard 2022 from the open-source LeoRover simulator (MIT)." },
     ],

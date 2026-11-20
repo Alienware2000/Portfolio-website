@@ -252,7 +252,7 @@ export const projects = [
     title: "Mars Rover Autonomy",
     slug: "mars-rover-autonomy",
     year: 2026,
-    cover: { video: "/videos/rover/crater-wall.mp4", img: "/videos/rover/crater-wall.jpg", alt: "Simulated rover driving a planned route around a crater wall on Mars-like terrain", host: "rover sim lab · crater wall mission (simulation)" },
+    cover: { video: "/videos/rover/sim-lab.mp4", img: "/videos/rover/sim-lab.jpg", alt: "Rover Sim Lab replaying a full simulated drive: the planner map fills in as the rover explores, beside the synced 3D view and telemetry", host: "rover sim lab · across the yard (simulation)", note: "A full simulated drive in Rover Sim Lab, which I built: the planner's map fills in as the rover explores, next to the synced 3D view and telemetry. Six minutes of driving at 12x speed." },
     case: cases["mars-rover-autonomy"],
     featured: 5,
     category: "robotics",

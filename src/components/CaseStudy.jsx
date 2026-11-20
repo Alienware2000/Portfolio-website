@@ -144,10 +144,12 @@ export default function CaseStudy({ project, prev, next, onClose }) {
               <Media project={project} eager full />
               <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
                 <p className="max-w-xl font-mono text-xs leading-relaxed text-mute">
-                  {project.cover?.replica && (
+                  {project.cover?.replica ? (
                     <>
                       <span className="text-ink/80">Interactive replica of the real interface.</span> {project.cover.note} Click around.
                     </>
+                  ) : (
+                    project.cover?.note
                   )}
                 </p>
                 {project.preview && (

@@ -6,7 +6,7 @@
 export const cases = {
   "benmp-partner-platform": {
     oneLiner: "The partner management platform an international organization runs on: admins at 117 hubs upload, clean, and manage partner records across 30+ countries.",
-    scope: "Software Engineer (part-time) · Jul 2026 to now",
+    scope: "Software Engineer (part-time volunteer) · Jul 2026 to now",
     problem:
       "BENMP's partners span 30+ countries, but their records lived in spreadsheets kept by hub leaders, with inconsistent names, phone formats, and church lists. The office could not reliably tell who had given, reach partners, or trust the legacy data.",
     built: [
@@ -197,47 +197,49 @@ export const cases = {
   },
 
   "ymau-registration-desk": {
-    oneLiner: "Conference site, Stripe registration, and a staff review desk for Yale Model African Union's sixth conference in Addis Ababa.",
+    oneLiner: "Conference site, Stripe registration, and a staff review desk for Yale Model African Union's sixth conference in Addis Ababa, used by 6,000+ delegates.",
     scope: "Lead Developer · Aug 2026 to now",
     problem:
-      "YMAU VI takes applications from thousands of young delegates, with fees, financial aid, documents, and a cap on paid places. The Secretariat needed one system to register and charge delegates, review aid fairly, and never double-sell a place or mark someone paid by mistake.",
+      "YMAU VI takes applications from thousands of young delegates across Africa, with fees, financial aid, documents, and delegations that pay as a group. The Secretariat needed one system to register and charge delegates, review aid fairly, and never mark someone paid by mistake.",
     built: [
       "A rebuilt yalemodelau.org (with French and Amharic pages) and a seven-step applicant portal with autosave, document uploads, and email sign-in links.",
-      "Stripe Checkout for single and whole-delegation payments, with webhook reconciliation, idempotency keys, refund and dispute flags, and a guard that turns payments off if Stripe's mode and the database disagree.",
-      "A Secretariat desk with three roles, an audit log, and financial aid review where an officer sees other reviewers' scores only after saving their own, so nobody anchors on someone else's number.",
-      "Row-level security on every table, and database traffic cuts when free-tier limits started blocking uploads.",
+      "Stripe Checkout for single and whole-delegation payments, with webhook reconciliation, refund and dispute flags, PDF visa letters, and a guard that turns payments off if Stripe's mode and the database disagree.",
+      "A Secretariat desk with roles, an audit log, and blind financial aid review: an officer sees other reviewers' scores only after saving their own, so nobody anchors on someone else's number.",
+      "Row-level security on every table, and CI/CD that gives every pull request its own preview deploy.",
     ],
     hardPart:
-      "Selling a capped number of places correctly across serverless instances, when one delegate can pay for a whole group and Stripe responses can get lost. Every payment, submission and aid write takes one transaction-scoped Postgres row lock first. A group checkout reserves all its places at once or fails as a whole, and a checkout only expires when Stripe confirms it, never on the app's own clock. I tested it by running the real migration in an in-memory Postgres, with two people racing for the last place and duplicate or out-of-order webhooks.",
+      "Weeks before the financial aid deadline, document uploads started failing: the database had used 13.7 GB of a 5.5 GB monthly traffic allowance. I traced it to three causes. Every new connection downloaded the database's type list (317,000 connections), every desk page load pulled about 5 MB, and dashboards polled every 30 seconds. I turned off the type download, made each server reuse one desk snapshot for as long as a cheap one-row change check says nothing has moved (capped at 5 minutes), and limited polling to the moments a payment is pending. An edit from another connection still shows up in about 2 seconds.",
     results: [
       { value: "6,000+", label: "delegates signed up for YMAU VI" },
       { value: "171", label: "delegations" },
+      { value: "1,324", label: "financial aid applications in the review desk" },
       { value: "3", label: "languages on the site" },
     ],
     decisions: [
-      "One transaction-scoped Postgres row lock guards capacity instead of counters checked in app code, so concurrent checkouts can't oversell a place.",
-      "A checkout expires only when Stripe confirms it, never on the app's own clock, so a slow payment can't lose its reserved place.",
-      "Payments switch off automatically if Stripe's test or live mode disagrees with the database, so test charges can never mark a real delegate paid.",
+      "The desk reuses one snapshot until a one-row change check says something moved, instead of reloading everything on every view or polling on a timer.",
+      "Payments switch off automatically if Stripe's test or live mode disagrees with the database, so a test charge can never mark a real delegate paid.",
+      "Reviewers score aid blind, seeing others' scores only after saving their own, so the first number doesn't set the rest.",
     ],
     arch: {
       nodes: [
         { id: "auth", label: "Email sign-in", tech: "Auth.js + Resend" },
         { id: "portal", label: "Applicant portal", tech: "Next.js", mine: true },
         { id: "stripe", label: "Checkout + webhooks", tech: "Stripe", mine: true },
-        { id: "db", label: "Database + capacity lock", tech: "Postgres, Drizzle", mine: true },
+        { id: "db", label: "Database", tech: "Postgres + RLS", mine: true },
         { id: "storage", label: "Documents", tech: "Supabase Storage" },
-        { id: "desk", label: "Secretariat desk", tech: "roles, aid review", mine: true },
+        { id: "desk", label: "Secretariat desk", tech: "snapshot, aid review", mine: true },
       ],
       edges: [
         { from: "auth", to: "portal", label: "sign in" },
-        { from: "portal", to: "stripe", label: "reserve, pay" },
+        { from: "portal", to: "stripe", label: "pay" },
         { from: "portal", to: "storage", label: "uploads" },
         { from: "stripe", to: "db", label: "reconcile" },
         { from: "desk", to: "db", label: "decisions" },
       ],
-      caption: "Invariant: a paid place exists only after Stripe confirms it, and only one writer can hold the capacity lock at a time.",
+      caption: "Invariant: a fee is marked paid only after a signed Stripe event, and payments stop if Stripe's mode and the database disagree.",
     },
   },
+
 
   intentionality: {
     oneLiner: "A productivity app for students that turns coursework into quests, with streaks, focus sessions, friends, and an AI planner.",

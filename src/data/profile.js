@@ -182,7 +182,7 @@ export const projects = [
     year: 2026,
     cover: { replica: "OfficeHours", note: "The hosted app is only switched on for demos, so this copy plays example lessons through the same interface.", scene: "board", host: "better office hours · voice session" },
     case: cases["better-office-hours"],
-    featured: 4,
+    featured: 6,
     category: "ai",
     award: "1st place · YaleAI x SpaceXAI Cursor Build Challenge",
     description:
@@ -220,7 +220,7 @@ export const projects = [
     year: 2026,
     cover: { replica: "CloudAgent", note: "The real app sits behind a login and makes paid model calls, so this copy plays example tasks through the same interface.", scene: "agent", host: "cloud-coding-agent" },
     case: cases["cloud-coding-agent"],
-    featured: 2,
+    featured: 7,
     category: "ai",
     description:
       "A coding agent in a cloud sandbox that never grades its own homework. It writes a definition of done, builds, then a second agent with fresh context and read-only access tests the running app and shows evidence for every check.",
@@ -236,7 +236,7 @@ export const projects = [
     year: 2026,
     cover: { replica: "PartnerImport", note: "The real platform holds 16,000+ people's records and phone numbers, so this copy of its interface runs on sample data.", scene: "hubs", host: "benmp partners · hub workspace" },
     case: cases["benmp-partner-platform"],
-    featured: 1,
+    featured: 4,
     category: "product",
     metric: "16,000+ partners · 117 hubs",
     description:
@@ -246,7 +246,6 @@ export const projects = [
       "Bank and mobile money statement reconciliation, and a read-only AI assistant that only explains numbers the code computed.",
     ],
     tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL"],
-    code: "https://github.com/Alienware2000/benmp-prm",
   },
   {
     title: "Mars Rover Autonomy",
@@ -254,7 +253,7 @@ export const projects = [
     year: 2026,
     cover: { video: "/videos/rover/sim-lab.mp4", img: "/videos/rover/sim-lab.jpg", alt: "Rover Sim Lab replaying a full simulated drive: the planner map fills in as the rover explores, beside the synced 3D view and telemetry", host: "rover sim lab · across the yard (simulation)", note: "A full simulated drive in Rover Sim Lab, which I built: the planner's map fills in as the rover explores, next to the synced 3D view and telemetry. Six minutes of driving at 12x speed." },
     case: cases["mars-rover-autonomy"],
-    featured: 5,
+    featured: 1,
     category: "robotics",
     metric: "URC 2027 · Autonomy Lead",
     description:
@@ -296,7 +295,7 @@ export const projects = [
     year: 2026,
     cover: { replica: "RegistrationDesk", note: "The real desk holds delegates' personal data, so this copy of it runs on sample data.", img: "/work/ymau.jpg", alt: "Yale Model African Union VI homepage", host: "secretariat desk · yalemodelau.org" },
     case: cases["ymau-registration-desk"],
-    featured: 7,
+    featured: 5,
     category: "product",
     description:
       "Conference site, Stripe registration, and a blind-review desk for delegate applications and financial aid. 6,000+ delegates and 171 delegations signed up for YMAU VI so far.",
@@ -310,7 +309,7 @@ export const projects = [
     year: 2026,
     cover: { video: "/videos/drone/squad-pillars.mp4", img: "/videos/drone/squad-pillars.jpg", alt: "Four simulated Crazyflie drones flying past a field of pillars", host: "sim lab · 4 drones through pillars (simulation)" },
     case: cases["drone-swarm"],
-    featured: 6,
+    featured: 2,
     category: "robotics",
     metric: "O'Hern Lab · Yale",
     description:

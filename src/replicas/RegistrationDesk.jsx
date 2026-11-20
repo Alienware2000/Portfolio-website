@@ -965,40 +965,38 @@ function AuditTicker({ entry, fresh, children, onOpen, label = "Audit log" }) {
 
 /* ---------- cover: a scripted loop across three desk pages ---------- */
 
-const COVER_STEPS = 28; // 500ms each
+const COVER_STEPS = 24; // 500ms each
 
 function Cover({ playing }) {
-  const [t, setT] = useState(() => (reduced() ? 16 : 0));
+  const [t, setT] = useState(() => (reduced() ? 8 : 0));
   useEffect(() => {
     if (!playing || reduced()) return;
     const id = setInterval(() => setT((x) => (x + 1) % COVER_STEPS), 500);
     return () => clearInterval(id);
   }, [playing]);
 
-  const page = t < 9 ? "capacity" : t < 19 ? "delegates" : "aid";
+  // A delegation pays three fees in one checkout, then an officer scores an aid application blind
+  const page = t < 10 ? "delegates" : "aid";
   const s = {
-    reserved: t >= 3, paid: t >= 13 && t < 19 ? true : t >= 19, flash: t >= 13 && t <= 15,
+    reserved: t >= 3, paid: t >= 7, flash: t >= 7 && t <= 9,
     fees: {}, undo: {}, audit: [], t, open: null,
-    hover: page === "delegates" && t >= 10 && t < 13 ? "d1" : null,
-    scores: page === "aid" ? Object.fromEntries(RUBRIC.slice(0, Math.max(0, Math.min(4, t - 19))).map((c) => [c.key, SCRIPTED[c.key]])) : {},
-    saved: t >= 24,
+    hover: page === "delegates" && t >= 1 && t < 4 ? "d1" : null,
+    scores: page === "aid" ? Object.fromEntries(RUBRIC.slice(0, Math.max(0, Math.min(4, t - 11))).map((c) => [c.key, SCRIPTED[c.key]])) : {},
+    saved: t >= 16,
   };
-  if (page === "capacity") s.paid = false;
   const rows = ["d1", "d2", "d3", "d4", "d5", "d6"].map((id) => rowOf(DELEGATES.find((d) => d.id === id), s));
 
   let entry = SEED_AUDIT[0];
   let fresh = false;
   let label = "Audit log";
-  if (t >= 3 && t < 12) { entry = { who: PAYER, what: "capacity · checkout reserved · 3 places held for 35 min" }; fresh = t < 9; }
-  if (t === 12) { entry = { who: "", what: "checkout.session.completed · signature verified · reconciling 3 fees" }; fresh = true; label = "Stripe webhook"; }
-  if (t >= 13 && t < 19) { entry = { who: "stripe", what: "capacity · checkout paid · 3 registrations complete" }; fresh = true; }
-  if (t >= 19) { entry = { who: "", what: t >= 24 ? "your score is saved, so the other reviewer’s score now shows" : "the other reviewer’s score stays hidden until yours is saved" }; fresh = true; label = "Blind review"; }
+  if (t >= 3 && t < 6) { entry = { who: PAYER, what: "checkout started · one delegation paying 3 fees" }; fresh = true; }
+  if (t === 6) { entry = { who: "", what: "checkout.session.completed · signature verified · reconciling 3 fees" }; fresh = true; label = "Stripe webhook"; }
+  if (t >= 7 && t < 10) { entry = { who: "stripe", what: "checkout paid · 3 registrations complete" }; fresh = true; }
 
   return (
     <div className="grid h-full grid-cols-[156px_1fr]">
       <Sidebar page={page} compact aidCount="296" />
       <main className="relative min-w-0 overflow-hidden px-[18px] pt-[14px]">
-        {page === "capacity" && <CapacityPage s={s} compact />}
         {page === "delegates" && <DelegatesPage rows={rows} s={s} compact />}
         {page === "aid" && <AidReviewPage s={s} compact />}
         {page !== "aid" && <AuditTicker entry={entry} fresh={fresh} label={label} />}

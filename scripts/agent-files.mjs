@@ -235,7 +235,7 @@ export function toCaseMarkdown(pr) {
     if (c.arch.caption) out.push(c.arch.caption, "");
   }
   if (c.decisions?.length) out.push("## Decisions", "", ...c.decisions.map((d) => `- ${d}`), "");
-  if (c.media?.length) out.push("## Videos", "", ...c.media.map((m) => `- ${m.caption} (${SITE}${m.video})`), "");
+  if (c.media?.length) out.push("## Videos and figures", "", ...c.media.map((m) => `- ${m.caption} (${SITE}${m.video || m.img})`), "");
   if (c.next) out.push("## What's next", "", c.next, "");
   out.push(`Tech: ${pr.tags.join(", ")}${links(pr) ? `. Links: ${links(pr)}` : ""}`, "", `Page: ${SITE}/work/${pr.slug}`, "");
   return out.join("\n");

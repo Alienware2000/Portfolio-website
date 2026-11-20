@@ -33,21 +33,25 @@ function CopyLink() {
   );
 }
 
-/** A muted clip that plays only while on screen, with a caption under it */
-function Clip({ video, poster, caption }) {
+/** A muted clip that plays only while on screen (or a still figure), with a caption under it */
+function Clip({ video, poster, img, alt, caption }) {
   const ref = useRef(null);
   const onScreen = useOnScreen(ref);
   useEffect(() => {
     const v = ref.current;
-    if (!v) return;
+    if (!v || !video) return;
     if (onScreen && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) v.play().catch(() => {});
     else v.pause();
-  }, [onScreen]);
+  }, [onScreen, video]);
   return (
     <figure className="min-w-0">
-      <video ref={ref} className="w-full border border-line bg-black" muted loop playsInline controls preload="metadata" poster={poster}>
-        <source src={video} type="video/mp4" />
-      </video>
+      {video ? (
+        <video ref={ref} className="w-full border border-line bg-black" muted loop playsInline controls preload="metadata" poster={poster}>
+          <source src={video} type="video/mp4" />
+        </video>
+      ) : (
+        <img ref={ref} src={img} alt={alt || ""} loading="lazy" decoding="async" className="w-full border border-line bg-white" />
+      )}
       <figcaption className="mt-2 text-sm leading-relaxed text-mute">{caption}</figcaption>
     </figure>
   );
@@ -188,7 +192,7 @@ export default function CaseStudy({ project, prev, next, onClose }) {
             <Block title="See it run" wide>
               <div className="grid gap-8">
                 {c.media.map((m) => (
-                  <Clip key={m.video} {...m} />
+                  <Clip key={m.video || m.img} {...m} />
                 ))}
               </div>
             </Block>

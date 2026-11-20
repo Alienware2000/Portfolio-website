@@ -88,11 +88,12 @@ export const experience = [
     end: "Present",
     active: true,
     bullets: [
-      "Built the ROS 2 mission state machine for both autonomy missions, with command guards, cancellation, timeouts, and stale-result rejection, in a package with 91 tests (Python).",
-      "Integrated missions with Nav2 navigation and fused localization in Gazebo, and fixed a GPS initialization race that could corrupt position estimates.",
-      "Set up ARM64 and x86-64 Docker environments and GitHub Actions build and test pipelines for the team.",
+      "Built a physics simulator of the rover (MuJoCo) so the team's self-driving code could be tested before the rover could drive, with simulated GPS, IMU, wheels and stereo camera, and 20 repeats of every full-rover test.",
+      "Wrote the rover's route planning and following (A*, pure pursuit); keeping routes clear of steep ground cut failed drives from 36 to 2 across 162 random routes.",
+      "Used the simulator to settle a hardware question: a low camera caused most failures, a higher mount raised hard tests from 60 to 79 of 80, and the mechanical team adopted an adjustable tilt.",
+      "Built the ROS 2 mission coordinator for both autonomy missions (91 tests) and the team's dev containers and CI.",
     ],
-    stack: ["ROS 2", "Python", "Nav2", "Gazebo", "Docker", "GitHub Actions"],
+    stack: ["ROS 2", "Python", "MuJoCo", "Path planning", "Docker", "GitHub Actions"],
   },
   {
     org: "O'Hern Lab, Yale Mechanical Engineering",
@@ -103,11 +104,11 @@ export const experience = [
     end: "Present",
     active: true,
     bullets: [
-      "Built the swarm's simulation test bench in Python on Crazyflow (JAX + MuJoCo), with plug-in slots so any controller or planner runs through the same tests.",
-      "Implemented and compared A*, potential-field and EGO-Planner avoidance across 3 obstacle worlds, then added multi-drone flight with shared plans that took a 4-drone swap from colliding to no contact.",
-      "Traced an 8 cm hover error to a firmware thrust constant over-driving the motors by 1.61x, built Sim Lab to replay and re-run every test flight, and wrote a 39-paper sim-to-real review. Next: reinforcement learning in JAX.",
+      "Made the swarm's drone simulator 1,600x faster (from 50x to 80,000x real time) by rewriting its flight loop in JAX to run thousands of worlds at once, fast enough to train with reinforcement learning.",
+      "Got four drones through obstacles without colliding by having them share and update their planned paths, raising safe arrivals from 10 of 55 to 50 of 55 on a 220-run benchmark I built.",
+      "Caught a learning drone gaming its test (flying around obstacles instead of through them) and redesigned the task from measurements, including a sensing model that never misses the nearest obstacle.",
     ],
-    stack: ["Python", "JAX", "MuJoCo", "Crazyflie", "Path planning"],
+    stack: ["Python", "JAX", "MuJoCo", "Reinforcement learning", "Crazyflie"],
   },
   {
     org: "Saxena Lab, Yale",
@@ -156,7 +157,7 @@ export const leadership = [
     caseSlug: "yais-platform",
     dates: "Sep 2026 → Now",
     active: true,
-    text: "Lead technology for YAIS V: built the new website and the event platform, with verified registration, Stripe checkout, QR passes and a staff check-in desk, in private testing before launch. Before that, as Student Ambassador for the Tech & AI Innovation Lab, co-led the AI founder simulation that won Best Innovation Lab at YAIS IV.",
+    text: "Lead technology for YAIS V: launched the new website on the official domain and built the ticketing platform, which opened sales on Nov 15 with verified registration, Stripe checkout, QR passes and a staff check-in desk. Before that, as Student Ambassador for the Tech & AI Innovation Lab, co-led the AI founder simulation that won Best Innovation Lab at YAIS IV.",
   },
   {
     org: "Goldman Sachs",
@@ -251,17 +252,14 @@ export const projects = [
     title: "Mars Rover Autonomy",
     slug: "mars-rover-autonomy",
     year: 2026,
-    cover: { replica: "RoverMission", note: "The mission console runs on the team's machines, so this copy rebuilds it in the browser and runs a JavaScript port of the real state machine.", scene: "rover", host: "foxglove · rover27 mission observation (simulation)" },
+    cover: { video: "/videos/rover/crater-wall.mp4", img: "/videos/rover/crater-wall.jpg", alt: "Simulated rover driving a planned route around a crater wall on Mars-like terrain", host: "rover sim lab · crater wall mission (simulation)" },
     case: cases["mars-rover-autonomy"],
     featured: 5,
     category: "robotics",
+    metric: "URC 2027 · Autonomy Lead",
     description:
-      "Autonomy software for Yale's Mars rover: a mission coordinator that drives Nav2 navigation, tested in Gazebo simulation.",
-    highlights: [
-      "Mission state machine for both autonomy missions with guards, cancellation, timeouts, and 91 tests.",
-      "Nav2 navigation on fused localization in Gazebo, plus a fix for a GPS startup race in localization.",
-    ],
-    tags: ["ROS 2", "Nav2", "Python", "Gazebo", "Docker"],
+      "Autonomy for Yale's Mars rover: a MuJoCo simulator that runs the team's real navigation code on Mars-like terrain, plus the route planning, path following and camera-guided approach it tests. A camera-mount sweep in simulation raised hard tests from 60 to 79 of 80, and the mechanical team adopted the change.",
+    tags: ["ROS 2", "Python", "MuJoCo", "Path planning", "Simulation"],
   },
   {
     title: "TicketDodge",
@@ -316,8 +314,8 @@ export const projects = [
     category: "robotics",
     metric: "O'Hern Lab · Yale",
     description:
-      "The simulation test bench for an O'Hern Lab Crazyflie swarm. One or several drones fly through obstacle worlds while avoidance methods from published papers are compared: A* and EGO-Planner cleared all 3 worlds without contact, and shared plans took a 4-drone swap from colliding to clean. A local web app replays and re-runs every test. Next: reinforcement learning in JAX and the first real Crazyflies.",
-    tags: ["Python", "JAX", "MuJoCo", "Crazyflie", "Path planning"],
+      "Simulation and reinforcement learning for an O'Hern Lab Crazyflie swarm. Made the simulator 1,600x faster in JAX, got four drones through obstacles without colliding by sharing their plans (50 of 55 safe vs 10 of 55), and caught a learning drone gaming its test, then redesigned the task from measurements.",
+    tags: ["Python", "JAX", "MuJoCo", "Reinforcement learning", "Crazyflie"],
   },
   {
     title: "Eli",
@@ -342,14 +340,15 @@ export const projects = [
     title: "YAIS Platform",
     slug: "yais-platform",
     year: 2026,
-    cover: { scene: "tickets", host: "yais v · ticket flow" },
+    cover: { img: "/work/yais.jpg", alt: "Yale Africa Innovation Symposium homepage", host: "yaleafricainnovation.org" },
     case: cases["yais-platform"],
     featured: 3,
     category: "product",
-    metric: "In private testing",
+    metric: "Ticket sales live",
     description:
-      "Website and event platform I built for the Yale Africa Innovation Symposium. Registration with an emailed code, Stripe checkout, one QR pass per attendee, partial refunds and a phone check-in scanner, in private testing before launch. Duplicate or missed payment notices still produce exactly one ticket and one email.",
+      "Website and ticketing platform for the Yale Africa Innovation Symposium, live at yaleafricainnovation.org. Registration with an emailed code, Stripe checkout, promo and complimentary tickets, one QR pass per attendee and a phone check-in desk. Sales opened by themselves at midnight on Nov 15.",
     tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Stripe"],
+    live: "https://www.yaleafricainnovation.org",
   },
   {
     title: "Press Archive",
@@ -470,10 +469,10 @@ export const projects = [
 // Update the list and `updated` whenever the work changes; agents read `updated` as "current as of".
 export const updated = "2026-11-20";
 export const building = [
-  { tag: "Drone swarm", slug: "drone-swarm", text: "Squads of four drones through obstacle worlds with re-planning, then reinforcement learning in JAX and the first real Crazyflies." },
-  { tag: "YAIS", slug: "yais-platform", text: "Getting YAIS V ready to launch: registration, Stripe checkout, QR passes and the staff check-in desk are in private testing." },
+  { tag: "Drone swarm", slug: "drone-swarm", text: "Training a drone in the redesigned obstacle worlds, then a fair comparison with planners that get the same 1 m sensing, then several learning drones at once." },
+  { tag: "YAIS", slug: "yais-platform", text: "Ticket sales for YAIS V are open: keeping registration, payments and receipts steady through Early Bird." },
   { tag: "YMAU", slug: "ymau-registration-desk", text: "Running the YMAU VI registration platform as 6,000+ delegates sign up: payments, financial aid review, and keeping the database fast under load." },
-  { tag: "Mars Rover", slug: "mars-rover-autonomy", text: "The mission coordinator and simulation tooling for both University Rover Challenge 2027 autonomy missions." },
+  { tag: "Mars Rover", slug: "mars-rover-autonomy", text: "Teaching the rover to plan from its own camera map and a real elevation map of the competition site, then driving the real rover and comparing it with the simulator." },
   { tag: "BENMP", slug: "benmp-partner-platform", text: "Office tools for the partner platform as it grows past 117 hubs, starting with one admin view across every region." },
   { tag: "muSim", org: "Saxena Lab", text: "Generalizing the lab's reinforcement-learning controllers for musculoskeletal models to new bodies, and making the code modular and faster to train." },
 ];
